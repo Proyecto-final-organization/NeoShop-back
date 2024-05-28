@@ -4,9 +4,9 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "order_item",
+    "order_detail",
     {
-      id: {
+      id_order_detail: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
@@ -15,11 +15,19 @@ module.exports = (sequelize) => {
       quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          isInt: true, // Verifica que sea un número entero
+          min: 1, // Asegura que sea al menos 1
+        },
       },
 
-      subtotal: {
+      total: {
         type: DataTypes.FLOAT,
         allowNull: false,
+        validate: {
+          isFloat: true, // Verifica que sea un número de punto flotante
+          min: 0, // Asegura que no sea un valor negativo
+        },
       },
     },
     { timestamps: false }
