@@ -6,12 +6,20 @@ module.exports = (sequelize) => {
   sequelize.define(
     "review",
     {
-      id: {
+      id_review: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      
+      comment: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "La descripción del producto no puede estar vacía",
+          },
+        },
+      },
       rating: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -20,7 +28,6 @@ module.exports = (sequelize) => {
           max: 5
         }
       },
-
       date: {
         type: DataTypes.STRING,
         allowNull: false,
