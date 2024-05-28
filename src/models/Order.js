@@ -13,21 +13,36 @@ module.exports = (sequelize) => {
       },
 
       date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
+        validate: {
+          isDate: true, // Valida que sea una fecha válida
+          isAfter: "1900-01-01", // Asegura que la fecha no sea ridículamente antigua
+        },
       },
 
       total_amount: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          isInt: true, // Verifica que sea un número entero
+          min: 0, // Asegura que no sea un valor negativo
+        },
       },
+
       state: {
         type: DataTypes.ENUM('created', 'in_progress', 'finalized'),
         defaultValue: "finalized",
+        allowNull: false,
       },
-      shipping_adress: {
+
+      shipping_address: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          len: [1, 100],//entre 1 y 20 caracteres
+          is: /^[a-zA-Z0-9\s,'-]*$/, // Valida que solo contenga letras, números, espacios, comas y guiones
+        },
       },
     },
     { timestamps: false }

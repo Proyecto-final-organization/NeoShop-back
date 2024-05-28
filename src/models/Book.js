@@ -89,7 +89,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         validate: {
           isInt: true,
-          min: 1700, 
+          min: 1700,
           max: new Date().getFullYear()
         },
       },
