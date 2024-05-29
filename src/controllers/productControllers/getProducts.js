@@ -11,17 +11,15 @@ async function getProducts(req, res) {
 
         const arrOfProducts = productsFromDB.map(x => {//Los retornamos con los siguientes datos:
             return {
+                id_product:  x.id_product,
+                img_product: x.img_product,
                 name: x.name,
                 description: x.description,
-                date: x.date,
+                date_creation: x.date_creation,
                 price: x.price,
                 quantity: x.quantity,
                 available: x.available,
                 average_mark: x.average_mark,
-                status: x.status,
-                id_review: x.review,
-                id_discounts: x.id_discounts,
-                id_store: x.id_store
             };
         });
         

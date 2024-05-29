@@ -1,8 +1,8 @@
-const { User } = require('../../db.js');
+const { user } = require('../../db.js');
 
 const getUserById = async (idUser) => {
-    const user = await User.findByPk(idUser);
-    return user;
+    const userById = await user.findByPk(idUser);
+    return userById;
 };
 
 module.exports = getUserById;

@@ -1,13 +1,13 @@
 const { Router } = require("express");
 const userRoutes = Router();
 const postUser = require("../controllers/userControllers/postUser");
-const getUser = require("../controllers/userControllers/getUser");
+const getUsers = require("../controllers/userControllers/getUsers");
 const getUserById = require("../controllers/userControllers/getUserById");
 
 userRoutes.post("/", async (req, res) => {
   try {
-    const {name, lastname, password, city, state, postalCode, email} = req.body;
-    const newUser = await postUser({name, lastname, password, city, state, postalCode, email});
+    const {name, lastname, password, city, state, postalCode, email, nro_document} = req.body;
+    const newUser = await postUser({name, lastname, password, city, state, postalCode, email, nro_document});
     return res.status(200).json(newUser);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -16,7 +16,7 @@ userRoutes.post("/", async (req, res) => {
 
 userRoutes.get("/", async (req, res) => {
     try {
-        const allUsers = await getUser();
+        const allUsers = await getUsers();
         return res.status(200).json(allUsers);
     } catch (error) {
         return res.status(500).json({ error: error.message });
