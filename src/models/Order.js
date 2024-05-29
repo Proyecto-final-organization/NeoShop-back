@@ -33,10 +33,7 @@ module.exports = (sequelize) => {
         defaultValue: "finalized",
         allowNull: false,
       },
-<<<<<<< HEAD
-=======
-
->>>>>>> cfb85c86a5863c1fb403589b451c81dfe651cd0d
+      
       shipping_address: {
         type: DataTypes.STRING,
         allowNull: false,

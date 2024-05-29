@@ -1,4 +1,4 @@
-const { Product } = require("../../db.js");
+const { Product } = require("./src/db.js");
 // const { Sequelize } = require('sequelize');
 
 async function postProduct(req, res) {

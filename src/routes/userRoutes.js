@@ -20,4 +20,4 @@ const user = Router();
 
 
 
-module.exports = userHandler;
+module.exports = user;
