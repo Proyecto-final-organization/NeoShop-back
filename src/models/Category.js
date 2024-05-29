@@ -4,31 +4,14 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "review",
+    "category",
     {
-      id_review: {
+      id: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      comment: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "La descripción del producto no puede estar vacía",
-          },
-        },
-      },
-      rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-          min: 1,
-          max: 5
-        }
-      },
-      date: {
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },

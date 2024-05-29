@@ -4,10 +4,14 @@ module.exports = (sequelize) => {
   sequelize.define(
     "cart",
     {
-      id: {
+      id_cart: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+      },
+      quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       total: {
         type: DataTypes.FLOAT,

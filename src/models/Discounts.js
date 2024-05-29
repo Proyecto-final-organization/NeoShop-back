@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      discount_percentage: {
+      percentage: {
         type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
