@@ -1,6 +1,7 @@
 const { Router } = require("express");
-const user = Router();
-
+const userRoutes = Router();
+//controllers
+const getAllUsers = require("../controllers/userControllers/getAllUsers");
 
 //Ejemplo
 // user.post("/", async (req, res) => {
@@ -18,6 +19,13 @@ const user = Router();
 //   }
 // });
 
+userRoutes.get("/", async (req, res) => {
+  try {
+    const allUsers = await getAllUsers();
+    res.status(200).json(allUsers);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-
-module.exports = userHandler;
+module.exports = userRoutes;

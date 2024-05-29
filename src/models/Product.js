@@ -12,8 +12,17 @@ module.exports = (sequelize) => {
         primaryKey: true,
         unique: true,
       },
+      img_product: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+        validate: {
+          isUrl: {
+            msg: "El link de la imagen debe ser una URL válida",
+          },
+        },
+      },
       name: {
-        type: Sequelize.STRING(50),
+        type: DataTypes.STRING(50),
         allowNull: false,
         validate: {
           notEmpty: {
@@ -26,7 +35,7 @@ module.exports = (sequelize) => {
         },
       },
       description: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notEmpty: {
@@ -35,12 +44,12 @@ module.exports = (sequelize) => {
         },
       },
       date_creation: {
-        type: Sequelize.DATE,
+        type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: Sequelize.NOW,
+        defaultValue: DataTypes.NOW,
       },
       price: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         validate: {
           isDecimal: {
@@ -53,7 +62,7 @@ module.exports = (sequelize) => {
         },
       },
       quantity: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
           isInt: {
@@ -66,12 +75,12 @@ module.exports = (sequelize) => {
         },
       },
       available: {
-        type: Sequelize.BOOLEAN,
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true,
       },
       average_mark: {
-        type: Sequelize.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
         defaultValue: null,
       },

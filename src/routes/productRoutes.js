@@ -4,4 +4,4 @@ const productRoutes = Router();
 //controllers
 
 
-module.exports = bookRoutes;
+module.exports = productRoutes;
