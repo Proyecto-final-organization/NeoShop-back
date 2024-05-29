@@ -1,5 +1,5 @@
 const { User } = require('../../db.js');
-const bcryptjs = require("bcryptjs");
+//const bcryptjs = require("bcryptjs");
 
 const postUser = async (data) => {
     let {name, lastname, password, city, state, postalCode, email} = data;
