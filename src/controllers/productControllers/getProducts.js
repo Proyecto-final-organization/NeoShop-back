@@ -1,8 +1,9 @@
-const { Product } = require('../../db.js');
+const { product } = require('../../db.js');
+const { Sequelize } = require('sequelize');
 
 //This function get all the products from our DB
 async function getProducts(req, res) {
-        const productsFromDB = await Product.findAll({});//Traemos todos los productos de la base de datos
+        const productsFromDB = await product.findAll();//Traemos todos los productos de la base de datos
 
         if (productsFromDB.length === 0) {//comprobamos que no este vacia
             throw new Error("No products found in the database.");
