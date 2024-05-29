@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       comment: {
-        type: Sequelize.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notEmpty: {
