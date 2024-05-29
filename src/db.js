@@ -91,6 +91,16 @@ order_detail.belongsTo(order);
 
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  //...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+  product,
+  order,
+  store,
+  order_detail,
+  payment,
+  review,
+  user,
+  discounts,
+  cart,
+  category,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
