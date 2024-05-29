@@ -1,32 +1,24 @@
-const { Product } = require("./src/db.js");
-// const { Sequelize } = require('sequelize');
+const { product } = require('../../db.js');
 
-async function postProduct(req, res) {
+async function postProduct(data) {
     const {
         name,
         description,
-        date,
         price,
         quantity,
-        available,
-        average_mark,
-        status,
-        id_review,
-        id_discounts,
-        id_store,
-    } = req.body;
-    try {
-        if (!name || !description || !date || !price || !quantity || !available || !average_mark || !status || !id_review || !id_discounts || !id_store) {
-            return res.status(402).send({ message: 'Missing data' });
-        }
-        const createNewProduct = await Product.create({
-            name, description, date, price, quantity, available, average_mark, status, id_review, id_discounts, id_store
-        });
-
-        return res.status(201).json({ message: "Data saved successfully" });
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
+        img_product,
+        available
+    } = data;
+    
+    if (!name || !description || !price || !quantity || !img_product || !available ) {
+        throw new Error("Missing data");
     }
+    
+    const createNewProduct = await product.create({
+        name, description, price, quantity, available, img_product 
+    });
+
+    return "Product saved successfully";       
 }
 
 module.exports = postProduct;
