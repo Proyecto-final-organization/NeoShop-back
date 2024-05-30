@@ -43,6 +43,13 @@ module.exports = (sequelize) => {
             isDate: true, // Valida que sea una fecha válida
         },
       },
+      logo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          isUrl: true // Valida que sea una URL válida
+        }
+      }
     },
     { timestamps: false }
   );
