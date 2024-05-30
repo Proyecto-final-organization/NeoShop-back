@@ -66,8 +66,8 @@ product.hasMany(review);
 review.belongsTo(product);
 
 //relacion de store a producto de 1 a muchos
-product.hasMany(store);
-store.belongsTo(product);
+store.hasMany(product);
+product.belongsTo(store);
 
 // Relación de Cart a product (muchos a muchos)
 cart.belongsToMany(product, { through: 'cart_product' });
