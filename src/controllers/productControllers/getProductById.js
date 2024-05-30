@@ -1,11 +1,22 @@
-const { product, category, store } = require("../../db.js");
+const { product, category, store, brand } = require("../../db.js");
 
 //Esta funcion busca productos por id
 const getProductById = async (idProduct) => {
   const productSearch = await product.findByPk(idProduct, {
     include: [
-      { model: category, through: "category_product" },
-      { model: store },
+      {
+        model: category,
+        through: { attributes: [] },
+        attributes: ["name"],
+      },
+      {
+        model: store,
+        attributes: ["name"],
+      },
+      {
+        model: brand,
+        attributes: ["name"],
+      },
     ],
   });
 
@@ -18,4 +29,3 @@ const getProductById = async (idProduct) => {
 };
 
 module.exports = getProductById;
-

@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     "store",
     {
-      id: {
+      id_store: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
@@ -38,7 +38,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
             len: [1, 20],
-            isAlpha: true, // Valida que solo contenga letras
         },
       },
       address_city: {
@@ -46,7 +45,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
             len: [1, 20],
-            isAlpha: true, // Valida que solo contenga letras
         },
       },
       date_creation: {

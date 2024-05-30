@@ -5,9 +5,9 @@ module.exports = [
         "price": "15",
         "quantity": "5",
         "img_product": ["https://imagen.com/martillo1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería López",
-        "categoryName": ["Herramienta"]
+        "fromStore": "Ferreteria Lopez",
+        "categoryName": ["Herramienta"],
+        "brand": "Fisher"
       },
       {
         "name": "Destornillador",
@@ -15,9 +15,9 @@ module.exports = [
         "price": "8",
         "quantity": "10",
         "img_product": ["https://imagen.com/destornillador1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería López",
-        "categoryName": ["Herramienta"]
+        "fromStore": "Ferreteria Lopez",
+        "categoryName": ["Herramienta"],
+        "brand": "Her"
       },
       {
         "name": "Taladro",
@@ -25,9 +25,9 @@ module.exports = [
         "price": "45",
         "quantity": "2",
         "img_product": ["https://imagen.com/taladro1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería Martínez",
-        "categoryName": ["Herramienta", "Electricidad"]
+        "fromStore": "Ferreteria Martinez",
+        "categoryName": ["Herramienta", "Electricidad"],
+        "brand": "Fisher"
       },
       {
         "name": "Sierra circular",
@@ -35,9 +35,9 @@ module.exports = [
         "price": "75",
         "quantity": "3",
         "img_product": ["https://imagen.com/sierracircular1.jpg"],
-        "available": false,
-        "fromStore": "Ferretería Martínez",
-        "categoryName": ["Herramienta", "Carpintería"]
+        "fromStore": "Ferreteria Martinez",
+        "categoryName": ["Herramienta", "Carpintería"],
+        "brand": "Fisher"
       },
       {
         "name": "Nivel de agua",
@@ -45,9 +45,9 @@ module.exports = [
         "price": "20",
         "quantity": "8",
         "img_product": ["https://imagen.com/nivelagua1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería López",
-        "categoryName": ["Herramienta", "Construcción"]
+        "fromStore": "Ferreteria Lopez",
+        "categoryName": ["Herramienta", "Construcción"],
+        "brand": "Cat"
       },
       {
         "name": "Escalera telescópica",
@@ -55,9 +55,9 @@ module.exports = [
         "price": "120",
         "quantity": "1",
         "img_product": ["https://imagen.com/escalerateloscopica1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería Martínez",
-        "categoryName": ["Herramienta", "Jardinería"]
+        "fromStore": "Ferreteria Martinez",
+        "categoryName": ["Herramienta", "Jardinería"],
+        "brand": "Fisher"
       },
       {
         "name": "Cinta métrica",
@@ -65,9 +65,9 @@ module.exports = [
         "price": "10",
         "quantity": "15",
         "img_product": ["https://imagen.com/cintametrica1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería López",
-        "categoryName": ["Herramienta", "Construcción"]
+        "fromStore": "Ferreteria Lopez",
+        "categoryName": ["Herramienta", "Construcción"],
+        "brand": "Cat"
       },
       {
         "name": "Llave inglesa",
@@ -75,9 +75,9 @@ module.exports = [
         "price": "15",
         "quantity": "6",
         "img_product": ["https://imagen.com/llaveinglesa1.jpg"],
-        "available": true,
-        "fromStore": "Ferretería Martínez",
-        "categoryName": ["Herramienta", "Mecánica"]
+        "fromStore": "Ferreteria Martinez",
+        "categoryName": ["Herramienta", "Mecánica"],
+        "brand": "Fisher"
       },
       {
         "name": "Martillo neumático",
@@ -85,9 +85,9 @@ module.exports = [
         "price": "250",
         "quantity": "1",
         "img_product": ["https://imagen.com/martilloneumatico1.jpg"],
-        "available": false,
-        "fromStore": "Ferretería Martínez",
-        "categoryName": ["Herramienta", "Construcción"]
+        "fromStore": "Ferreteria Martinez",
+        "categoryName": ["Herramienta", "Construcción"],
+        "brand": "Her"
       },
   ];
   

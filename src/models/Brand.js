@@ -4,9 +4,9 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "category",
+    "brand",
     {
-      id_category: {
+      id_brand: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,

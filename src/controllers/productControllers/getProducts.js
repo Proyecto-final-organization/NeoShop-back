@@ -1,11 +1,22 @@
-const { product, category, store } = require("../../db.js");
+const { product, category, store, brand } = require("../../db.js");
 
 //This function get all the products from our DB
 async function getProducts(req, res) {
   const productsFromDB = await product.findAll({
     include: [
-      { model: category, through: "category_product" },
-      { model: store },
+      {
+        model: category,
+        through: { attributes: [] },
+        attributes: ["name"],
+      },
+      {
+        model: store,
+        attributes: ["name"],
+      },
+      {
+        model: brand,
+        attributes: ["name"],
+      },
     ],
   });
 

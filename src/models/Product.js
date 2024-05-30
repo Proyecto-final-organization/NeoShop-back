@@ -48,19 +48,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
-      brand: {
-        type: DataTypes.STRING(20),
-        allowNull: false,
-        validate: {
-          notEmpty: {
-            msg: "El nombre del producto no puede estar vacío",
-          },
-          len: {
-            args: [2, 20],
-            msg: "El nombre del producto debe tener entre 2 y 50 caracteres",
-          },
-        },
-      },
+
       price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,

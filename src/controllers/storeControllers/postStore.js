@@ -14,6 +14,7 @@ async function postStore(data) {
     address_city,
   });
 
+  console.log()
   return "Product saved successfully", createNewStore;
 }
 

@@ -11,6 +11,7 @@ const categoryModel = require("./models/Category");
 const cartModel = require("./models/Cart");
 const discountsModel = require("./models/Discounts");
 const storeModel = require("./models/Store");
+const brandModel = require("./models/Brand");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
 const sequelize = new Sequelize(
@@ -31,6 +32,7 @@ categoryModel(sequelize);
 cartModel(sequelize);
 discountsModel(sequelize);
 storeModel(sequelize);
+brandModel(sequelize);
 //Relaciones
 const {
   product,
@@ -43,15 +45,16 @@ const {
   discounts,
   cart,
   category,
+  brand,
 } = sequelize.models;
 
 //Relacion de user a product de muchos a muchos, va servir para guardar favoritos del user
-user.belongsToMany(product, { through: "user_product"})
-product.belongsToMany(user, { through: "user_product"})
+user.belongsToMany(product, { through: "user_product" });
+product.belongsToMany(user, { through: "user_product" });
 
 //Relacion de muchos a muchos de user a store
-store.belongsToMany(user, { through: "store_user"})
-user.belongsToMany(store, { through: "store_user"})
+store.belongsToMany(user, { through: "store_user" });
+user.belongsToMany(store, { through: "store_user" });
 
 //Relación de 1 a muchos de usuario a order
 user.hasMany(order);
@@ -69,13 +72,17 @@ review.belongsTo(product);
 store.hasMany(product);
 product.belongsTo(store);
 
+//marca a producto de 1 a muchos
+brand.hasMany(product);
+product.belongsTo(brand);
+
 // Relación de Cart a product (muchos a muchos)
-cart.belongsToMany(product, { through: 'cart_product' });
-product.belongsToMany(cart, { through: 'cart_product' });
+cart.belongsToMany(product, { through: "cart_product" });
+product.belongsToMany(cart, { through: "cart_product" });
 
 // Relación de category a product (muchos a muchos)
-category.belongsToMany(product, { through: 'category_product' });
-product.belongsToMany(category, { through: 'category_product' });
+category.belongsToMany(product, { through: "category_product" });
+product.belongsToMany(category, { through: "category_product" });
 
 // Relación de Discounts a product (uno a uno)
 discounts.hasOne(product);
@@ -89,7 +96,6 @@ payment.belongsTo(order);
 order.hasMany(order_detail);
 order_detail.belongsTo(order);
 
-
 module.exports = {
   //...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   product,
@@ -102,5 +108,6 @@ module.exports = {
   discounts,
   cart,
   category,
+  brand,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

@@ -1,27 +1,31 @@
-const { product, category, store } = require("../../db.js");
+const { product, category, store, brand } = require("../../db.js");
 
-async function postProduct(data) {
-  const {
-    name,
-    description,
-    price,
-    quantity,
-    img_product,
-    categoryName,
-    fromStore,
-  } = data;
+const postProduct = async ({
+  name,
+  description,
+  price,
+  quantity,
+  img_product,
+  categoryName,
+  fromStore,
+  brand: brandName,
+}) => {
+  const existingStore = await store.findOne({
+    where: {
+      name: fromStore,
+    },
+  });
 
-  if (
-    !name &&
-    !description &&
-    !price &&
-    !quantity &&
-    !img_product &&
-    !categoryName &&
-    !fromStore
-  ) {
-    throw new Error("Missing data");
+  if (!existingStore) {
+    throw new Error("Store not found");
   }
+ console.log(brand)
+  const [newBrand] = await brand.findOrCreate({
+    where: {
+      name: brandName,
+    },
+  });
+  console.log(newBrand)
 
   const createNewProduct = await product.create({
     name,
@@ -29,6 +33,7 @@ async function postProduct(data) {
     price,
     quantity,
     img_product,
+    brandIdBrand: newBrand.id_brand,
   });
 
   const newCategorys = await Promise.all(
@@ -41,15 +46,17 @@ async function postProduct(data) {
       return newCategory;
     })
   );
+
   await createNewProduct.setCategories(newCategorys);
-  await createNewProduct.setStore(fromStore);
+  await createNewProduct.setStore(existingStore);
 
   return {
     message: "Product saved successfully",
     product: createNewProduct.get(),
     categories: newCategorys.map((cat) => cat.get()),
-    store: newStore.get(),
+    store: existingStore.get(),
+    brand: newBrand.get(),
   };
-}
+};
 
 module.exports = postProduct;

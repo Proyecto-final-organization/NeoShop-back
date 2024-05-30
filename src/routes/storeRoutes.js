@@ -12,5 +12,4 @@ storeRoutes.post("/", async (req, res) => {
     }
 });
 
-
 module.exports = storeRoutes;

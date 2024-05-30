@@ -38,6 +38,7 @@ productRoutes.post("/", async (req, res) => {
       img_product,
       categoryName,
       fromStore,
+      brand,
     } = req.body;
     // Verificar que todos los campos estén presentes
     if (!categoryName) {
@@ -61,6 +62,9 @@ productRoutes.post("/", async (req, res) => {
     if (!img_product) {
       return res.status(400).json({ error: "Missing data: img_product" });
     }
+    if (!brand) {
+      return res.status(400).json({ error: "Missing data: brand" });
+    }
     const posted = await postProduct({
       name,
       description,
@@ -69,6 +73,7 @@ productRoutes.post("/", async (req, res) => {
       img_product,
       categoryName,
       fromStore,
+      brand,
     });
     return res.status(200).json(posted);
   } catch (error) {
