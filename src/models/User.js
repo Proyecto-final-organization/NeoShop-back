@@ -47,10 +47,7 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING(),
-        validate: {
-          is: /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,15}$/,
-        },
-        allowNull: false,
+        allowNull: false
       },
       adress_street: {
         type: DataTypes.STRING,
@@ -58,7 +55,13 @@ module.exports = (sequelize) => {
       adress_nro: {
         type: DataTypes.STRING,
       },
-      adress_cp: {
+      postalCode: {
+        type: DataTypes.STRING,
+      },
+      city: {
+        type: DataTypes.STRING,
+      },
+      state: {
         type: DataTypes.STRING,
       },
       brithdate: {

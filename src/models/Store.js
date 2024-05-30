@@ -6,11 +6,24 @@ module.exports = (sequelize) => {
   sequelize.define(
     "store",
     {
-      id: {
+      id_store: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         unique: true,
+      },
+      name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "El nombre del producto no puede estar vacío",
+          },
+          len: {
+            args: [2, 50],
+            msg: "El nombre del producto debe tener entre 2 y 50 caracteres",
+          },
+        },
       },
       address_cp: {
         type: DataTypes.STRING,
@@ -25,7 +38,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
             len: [1, 20],
-            isAlpha: true, // Valida que solo contenga letras
         },
       },
       address_city: {
@@ -33,16 +45,20 @@ module.exports = (sequelize) => {
         allowNull: false,
         validate: {
             len: [1, 20],
-            isAlpha: true, // Valida que solo contenga letras
         },
       },
       date_creation: {
         type: DataTypes.DATE,
         allowNull: false,
-        validate: {
-            isDate: true, // Valida que sea una fecha válida
-        },
+        defaultValue: DataTypes.NOW,
       },
+      logo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        validate: {
+          isUrl: true // Valida que sea una URL válida
+        }
+      }
     },
     { timestamps: false }
   );

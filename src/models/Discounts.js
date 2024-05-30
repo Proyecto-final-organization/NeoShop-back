@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     "discounts",
     {
-      id: {
+      id_discounts: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
