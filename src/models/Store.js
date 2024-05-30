@@ -12,6 +12,19 @@ module.exports = (sequelize) => {
         primaryKey: true,
         unique: true,
       },
+      name: {
+        type: DataTypes.STRING(50),
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: "El nombre del producto no puede estar vacío",
+          },
+          len: {
+            args: [2, 50],
+            msg: "El nombre del producto debe tener entre 2 y 50 caracteres",
+          },
+        },
+      },
       address_cp: {
         type: DataTypes.STRING,
         primaryKey: true,
@@ -39,9 +52,7 @@ module.exports = (sequelize) => {
       date_creation: {
         type: DataTypes.DATE,
         allowNull: false,
-        validate: {
-            isDate: true, // Valida que sea una fecha válida
-        },
+        defaultValue: DataTypes.NOW,
       },
       logo: {
         type: DataTypes.STRING,

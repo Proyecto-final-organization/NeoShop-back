@@ -18,3 +18,4 @@ const getProductById = async (idProduct) => {
 };
 
 module.exports = getProductById;
+
