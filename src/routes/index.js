@@ -5,6 +5,7 @@ const router = Router();
 const productRoutes = require("./productRoutes");
 const userRoutes = require("./userRoutes");
 const storeRoutes = require("./storeRoutes");
+const loginRoutes = require("./loginRoutes");
 const fakeApi = require("../utils/montarBaseDeDatos")
 
 // Configurar los routers
@@ -12,6 +13,7 @@ const fakeApi = require("../utils/montarBaseDeDatos")
 router.use("/product", productRoutes);
 router.use("/user", userRoutes);
 router.use("/store", storeRoutes);
+router.use("/login", loginRoutes);
 router.use("/", fakeApi)
 
 
