@@ -48,6 +48,7 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: DataTypes.NOW,
       },
+
       price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
