@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
           },
         },
       },
-      address_cp: { 
+      address_cp: {
         type: DataTypes.STRING,
         primaryKey: true,
         validate: {

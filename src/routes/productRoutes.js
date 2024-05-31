@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const productRoutes = Router();
 //controllers
+//controllers
 const getProducts = require("../controllers/productControllers/getProducts");
 const getProductById = require("../controllers/productControllers/getProductById");
 const postProduct = require("../controllers/productControllers/postProduct");
@@ -8,6 +9,12 @@ const getProductByName = require("../controllers/productControllers/getproductBy
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
+  try {
+    const products = await getProducts();
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
   try {
     const products = await getProducts();
     res.status(200).json(products);
@@ -29,6 +36,7 @@ productRoutes.get("/:idProduct", async (req, res) => {
       const productData = await getProductById(idProduct);
       return res.status(200).json(productData);
   } catch (error) {
+    return res.status(500).json({ error: error.message });
     return res.status(500).json({ error: error.message });
   }
 });
@@ -82,7 +90,54 @@ productRoutes.post("/", async (req, res) => {
       brand,
     });
     return res.status(200).json(posted);
+    const {
+      name,
+      description,
+      price,
+      quantity,
+      img_product,
+      categoryName,
+      fromStore,
+      brand,
+    } = req.body;
+    // Verificar que todos los campos estén presentes
+    if (!categoryName) {
+      return res.status(400).json({ error: "Missing data: categoryName" });
+    }
+    if (!fromStore) {
+      return res.status(400).json({ error: "Missing data: fromStore" });
+    }
+    if (!name) {
+      return res.status(400).json({ error: "Missing data: name" });
+    }
+    if (!description) {
+      return res.status(400).json({ error: "Missing data: description" });
+    }
+    if (!price) {
+      return res.status(400).json({ error: "Missing data: price" });
+    }
+    if (!quantity) {
+      return res.status(400).json({ error: "Missing data: quantity" });
+    }
+    if (!img_product) {
+      return res.status(400).json({ error: "Missing data: img_product" });
+    }
+    if (!brand) {
+      return res.status(400).json({ error: "Missing data: brand" });
+    }
+    const posted = await postProduct({
+      name,
+      description,
+      price,
+      quantity,
+      img_product,
+      categoryName,
+      fromStore,
+      brand,
+    });
+    return res.status(200).json(posted);
   } catch (error) {
+    return res.status(500).json({ error: error.message });
     return res.status(500).json({ error: error.message });
   }
 });
