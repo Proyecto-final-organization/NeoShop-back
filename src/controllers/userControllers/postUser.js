@@ -24,8 +24,6 @@ const postUser = async (data) => {
     throw Error("Incomplete data");
   const hashPassword = await bcryptjs.hash(password, 10);
 
-  //const nro_document = 1234;
-
   const [newUser, created] = await user.findOrCreate({
     where: { email },
     defaults: {

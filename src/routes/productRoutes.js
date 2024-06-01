@@ -5,6 +5,7 @@ const getProducts = require("../controllers/productControllers/getProducts");
 const getProductById = require("../controllers/productControllers/getProductById");
 const postProduct = require("../controllers/productControllers/postProduct");
 const getProductByName = require("../controllers/productControllers/getproductByName");
+const filterByOptionProducts = require("../controllers/productControllers/filterByOptionProducts");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
@@ -17,7 +18,7 @@ productRoutes.get("/", async (req, res) => {
 });
 
 //Este es para traer un producto por id
-productRoutes.get("/:idProduct", async (req, res) => {
+productRoutes.get("/id/:idProduct", async (req, res) => {
   try {
     const { idProduct } = req.params;
     const productData = await getProductById(idProduct);
@@ -87,6 +88,17 @@ productRoutes.get("/name/:name", async (req, res) => {
     const { name } = req.params;
     const searchResult = await getProductByName(name);
     return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+productRoutes.get("/filter", async (req, res) => {
+  try {
+    const { store, brand, category, minPrice, maxPrice, minPoint, maxPoint } =
+    req.body;
+    const filterResult = await filterByOptionProducts({ store, brand, category, minPrice, maxPrice, minPoint, maxPoint });
+    return res.status(200).json(filterResult);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
