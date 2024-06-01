@@ -8,7 +8,13 @@ loginRoutes.post("/", async (req,res) => {
             email,
             password
         } = req.body;
-        const access = await login(email, password);
+        const {
+            correctLogin,
+            token,
+            cookieOption
+        } = await login(email, password);
+        res.cookie("jwt",token,cookieOption);
+        return res.status(200).json({message: "Correct login"});
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
