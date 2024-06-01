@@ -16,6 +16,9 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
     },
+    {
+      tableName: 'categories' // Esto asegura que Sequelize use la tabla 'categories'
+    },
     { timestamps: false }
   );
 };

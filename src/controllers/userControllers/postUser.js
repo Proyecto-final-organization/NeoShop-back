@@ -25,8 +25,6 @@ const postUser = async (data) => {
   )
     throw new Error("Incomplete data");
 
-<<<<<<< HEAD
-=======
   const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if(!regexEmail.test(email)) throw new Error("Invalid Email");
 
@@ -50,7 +48,6 @@ const postUser = async (data) => {
   name = correctName;
   lastname = correctLastname
 
->>>>>>> b8f74a9167b5c0cba7d495f9f351310233309f8b
   const [newUser, created] = await user.findOrCreate({
     where: { email },
     defaults: {
