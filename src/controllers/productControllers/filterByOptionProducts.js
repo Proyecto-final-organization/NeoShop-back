@@ -20,8 +20,11 @@ const filterByOptionProducts = async ({
         name: storeSearch,
       },
     });
+    console.log(storeFind)
     if (storeFind) {
-      whereCondition.storeIdStore = storeFind.id;
+      whereCondition.storeIdStore = storeFind.id_store;
+    } else {
+      return { error: `Store with name ${storeSearch} not found` };
     }
   }
 
@@ -33,7 +36,9 @@ const filterByOptionProducts = async ({
       },
     });
     if (brandFind) {
-      whereCondition.brandIdBrand = brandFind.id;
+      whereCondition.brandIdBrand = brandFind.id_brand;
+    } else {
+      return { error: `Brand with name ${brandSearch} not found` };
     }
   }
 
@@ -52,10 +57,10 @@ const filterByOptionProducts = async ({
   if (minPoint !== undefined || maxPoint !== undefined) {
     whereCondition.points = {};
     if (minPoint !== undefined) {
-      whereCondition.average_mark[Op.gte] = minPoint;
+      whereCondition.points[Op.gte] = minPoint;
     }
     if (maxPoint !== undefined) {
-      whereCondition.average_mark[Op.lte] = maxPoint;
+      whereCondition.points[Op.lte] = maxPoint;
     }
   }
 
