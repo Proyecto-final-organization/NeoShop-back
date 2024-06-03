@@ -26,7 +26,9 @@ const login = async (email, password) => {
 
     const cookieOption = {
         maxAge: 24 * 60 * 60 * 1000,
-        path: "/"
+        path: "/",
+        sameSite: "Lax", // Asegúrate de que sea 'None' si estás usando cookies entre dominios
+        secure: false
     };
     
     return {
