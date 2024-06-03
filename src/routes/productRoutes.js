@@ -96,7 +96,7 @@ productRoutes.post("/", async (req, res) => {
 });
 
 //Este es para traer tiendas o productos o descripciones etc
-productRoutes.get("/avanzada/:petition", async (req, res) => {
+productRoutes.get("/global/:petition", async (req, res) => {
   try {
     const { petition } = req.params;
 
