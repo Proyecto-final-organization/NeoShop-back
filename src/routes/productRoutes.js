@@ -1,20 +1,17 @@
 const { Router } = require("express");
 const productRoutes = Router();
 //controllers
-//controllers
 const getProducts = require("../controllers/productControllers/getProducts");
 const getProductById = require("../controllers/productControllers/getProductById");
 const postProduct = require("../controllers/productControllers/postProduct");
 const getProductByName = require("../controllers/productControllers/getproductByName");
+const getProductByDescription = require("../controllers/productControllers/getProductByDescription");
+const getProductByBrand = require("../controllers/productControllers/getProductByBrand");
+const getProductByStore = require("../controllers/productControllers/getProductByStore");
+const getProductsByCategory = require("../controllers/productControllers/getProductByCategory");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
-  try {
-    const products = await getProducts();
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
   try {
     const products = await getProducts();
     res.status(200).json(products);
@@ -26,17 +23,19 @@ productRoutes.get("/", async (req, res) => {
 //Este es para traer un producto por id
 productRoutes.get("/:idProduct", async (req, res) => {
   try {
-      const {idProduct} = req.params;
-      
-      // Validar que idStore sea un UUID válido
-      const uuidPattern = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-      if (!uuidPattern.test(idProduct)) {
-          return res.status(400).json({ error: "Invalid parameter. It must be a valid UUID." });
-      }
-      const productData = await getProductById(idProduct);
-      return res.status(200).json(productData);
+    const { idProduct } = req.params;
+
+    // Validar que idStore sea un UUID válido
+    const uuidPattern =
+      /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+    if (!uuidPattern.test(idProduct)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid parameter. It must be a valid UUID." });
+    }
+    const productData = await getProductById(idProduct);
+    return res.status(200).json(productData);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
     return res.status(500).json({ error: error.message });
   }
 });
@@ -90,82 +89,127 @@ productRoutes.post("/", async (req, res) => {
       brand,
     });
     return res.status(200).json(posted);
-    const {
-      name,
-      description,
-      price,
-      quantity,
-      img_product,
-      categoryName,
-      fromStore,
-      brand,
-    } = req.body;
-    // Verificar que todos los campos estén presentes
-    if (!categoryName) {
-      return res.status(400).json({ error: "Missing data: categoryName" });
-    }
-    if (!fromStore) {
-      return res.status(400).json({ error: "Missing data: fromStore" });
-    }
-    if (!name) {
-      return res.status(400).json({ error: "Missing data: name" });
-    }
-    if (!description) {
-      return res.status(400).json({ error: "Missing data: description" });
-    }
-    if (!price) {
-      return res.status(400).json({ error: "Missing data: price" });
-    }
-    if (!quantity) {
-      return res.status(400).json({ error: "Missing data: quantity" });
-    }
-    if (!img_product) {
-      return res.status(400).json({ error: "Missing data: img_product" });
-    }
-    if (!brand) {
-      return res.status(400).json({ error: "Missing data: brand" });
-    }
-    const posted = await postProduct({
-      name,
-      description,
-      price,
-      quantity,
-      img_product,
-      categoryName,
-      fromStore,
-      brand,
-    });
-    return res.status(200).json(posted);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
     return res.status(500).json({ error: error.message });
   }
 });
 
-//Este es para traer productos por nombre
+//Este es para traer tiendas o productos o descripciones etc
+productRoutes.get("/avanzada/:petition", async (req, res) => {
+  try {
+    const { petition } = req.params;
+
+    // Verificación de que peticion es una cadena
+    if (typeof petition !== "string") {
+      return res.status(400).json({ error: "The parameter must be a string" });
+    }
+
+    // Verificación de que peticion no sea demasiado larga
+    const petitionSeparado = petition.split("");
+    if (petitionSeparado.length > 40) {
+      return res.status(400).json({ error: "The parameter is too long" });
+    }
+
+    // Verificación de que peticion no contenga caracteres no permitidos
+    const validpetitionPattern = /^[a-zA-Z0-9\s+]*$/;
+    if (!validpetitionPattern.test(petition)) {
+      return res
+        .status(400)
+        .json({ error: "The parameter contains invalid characters" });
+    }
+
+    //Lo mandamos a diferentes controladores para que haga la busqueda
+    const [
+      searchByName,
+      searchByDescription,
+      searchByStore,
+      searchByBrand,
+      searchByCategory,
+    ] = await Promise.all([
+      getProductByName(petition),
+      getProductByDescription(petition),
+      getProductByBrand(petition),
+      getProductByStore(petition),
+      getProductsByCategory(petition),
+    ]);
+
+    // Combinamos los resultados en un array
+    const combinedResults  = [
+      ...searchByName,
+      ...searchByDescription,
+      ...searchByStore,
+      ...searchByBrand,
+      ...searchByCategory,
+    ];
+
+     // Usamos un Set para almacenar los IDs únicos de los productos
+     const uniqueProducts = new Set();
+     const searchResult = [];
+ 
+     combinedResults.forEach(product => {
+       if (!uniqueProducts.has(product.id_product)) {
+         uniqueProducts.add(product.id_product);
+         searchResult.push(product);
+       }
+     });
+     
+    // Verificamos si hay resultados
+    if (searchResult.length === 0) {
+      return res.status(404).json({ error: "No results found" });
+    }
+
+    return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Este es para traer productos por nombre(solo prueba)
 productRoutes.get("/name/:name", async (req, res) => {
   try {
-      const {name} = req.params;
-
-      // Verificación de que name es una cadena
-      if (typeof name !== 'string') {
-        return res.status(400).json({ error: "The 'name' parameter must be a string" });
-      }
-
-      // Verificación de que name no sea demasiado largo
-      const nameSeparado = name.split('');
-      if (nameSeparado.length > 20) {
-        return res.status(400).json({ error: "The 'name' parameter is too long" });
-      }
-
-      // Verificación de que name no contenga caracteres no permitidos
-      const validNamePattern = /^[a-zA-Z0-9\s+]*$/;
-      if (!validNamePattern.test(name)) {
-        return res.status(400).json({ error: "The 'name' parameter contains invalid characters" });
-      }
-      //Lo mandamos al controller para que realice la busqueda
-      const searchResult = await getProductByName(name);
-      return res.status(200).json(searchResult);
+    const { name } = req.params;
+    const searchResult = await getProductByName(name);
+    return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+//Este es para traer productos por descripcion(solo prueba)
+productRoutes.get("/description/:description", async (req, res) => {
+  try {
+    const { description } = req.params;
+    const searchResult = await getProductByDescription(description);
+    return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+//Productos por marca (Solo prueba)
+productRoutes.get("/brand/:nombre", async (req, res) => {
+  try {
+    const { nombre } = req.params;
+    const searchResult = await getProductByBrand(nombre);
+    return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+//Productos por tienda (Solo prueba)
+productRoutes.get("/store/:tienda", async (req, res) => {
+  try {
+    const { tienda } = req.params;
+    const searchResult = await getProductByStore(tienda);
+    return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+//Productos por categoria (Solo prueba)
+productRoutes.get("/categoria/:nombre", async (req, res) => {
+  try {
+    const { nombre } = req.params;
+    const searchResult = await getProductsByCategory(nombre);
+    return res.status(200).json(searchResult);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

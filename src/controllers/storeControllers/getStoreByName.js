@@ -7,7 +7,7 @@ const removeAccents = (str) => {
 };
 
 // Función para buscar storeos por nombre utilizando coincidencia difusa
-const getStoresByName = async (name) => {
+const getStoreByName = async (name) => {
   const leven = (await import("leven")).default;
 
   // Normalizamos el nombre buscado para eliminar tildes y convertirlo a minúsculas
@@ -58,7 +58,7 @@ const getStoresByName = async (name) => {
     ...new Set(allFilteredstores.map((prod) => prod.id)),
   ].map((id) => allFilteredstores.find((prod) => prod.id === id));
 
-  // Si no hay resultados, mandamos el mensaje correspondiente
+  //Si no hay resultados, mandamos el mensaje correspondiente
   if (uniqueFilteredstores.length < 1) {
     throw new Error("No results found");
   }
@@ -66,4 +66,4 @@ const getStoresByName = async (name) => {
   return uniqueFilteredstores;
 };
 
-module.exports = getStoresByName;
+module.exports = getStoreByName;
