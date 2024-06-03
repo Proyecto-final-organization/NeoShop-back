@@ -9,6 +9,7 @@ const getProductByDescription = require("../controllers/productControllers/getPr
 const getProductByBrand = require("../controllers/productControllers/getProductByBrand");
 const getProductByStore = require("../controllers/productControllers/getProductByStore");
 const getProductsByCategory = require("../controllers/productControllers/getProductByCategory");
+const filterByOptionProducts = require("../controllers/productControllers/filterByOptionProducts");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
@@ -21,7 +22,7 @@ productRoutes.get("/", async (req, res) => {
 });
 
 //Este es para traer un producto por id
-productRoutes.get("/:idProduct", async (req, res) => {
+productRoutes.get("/id/:idProduct", async (req, res) => {
   try {
     const { idProduct } = req.params;
 
@@ -134,7 +135,7 @@ productRoutes.get("/avanzada/:petition", async (req, res) => {
     ]);
 
     // Combinamos los resultados en un array
-    const combinedResults  = [
+    const combinedResults = [
       ...searchByName,
       ...searchByDescription,
       ...searchByStore,
@@ -142,17 +143,17 @@ productRoutes.get("/avanzada/:petition", async (req, res) => {
       ...searchByCategory,
     ];
 
-     // Usamos un Set para almacenar los IDs únicos de los productos
-     const uniqueProducts = new Set();
-     const searchResult = [];
- 
-     combinedResults.forEach(product => {
-       if (!uniqueProducts.has(product.id_product)) {
-         uniqueProducts.add(product.id_product);
-         searchResult.push(product);
-       }
-     });
-     
+    // Usamos un Set para almacenar los IDs únicos de los productos
+    const uniqueProducts = new Set();
+    const searchResult = [];
+
+    combinedResults.forEach((product) => {
+      if (!uniqueProducts.has(product.id_product)) {
+        uniqueProducts.add(product.id_product);
+        searchResult.push(product);
+      }
+    });
+
     // Verificamos si hay resultados
     if (searchResult.length === 0) {
       return res.status(404).json({ error: "No results found" });
@@ -210,6 +211,26 @@ productRoutes.get("/categoria/:nombre", async (req, res) => {
     const { nombre } = req.params;
     const searchResult = await getProductsByCategory(nombre);
     return res.status(200).json(searchResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Ruta para filtrar productos
+productRoutes.get("/filter", async (req, res) => {
+  try {
+    const { store, brand, category, minPrice, maxPrice, minPoint, maxPoint } =
+      req.body;
+    const filterResult = await filterByOptionProducts({
+      store,
+      brand,
+      category,
+      minPrice,
+      maxPrice,
+      minPoint,
+      maxPoint,
+    });
+    return res.status(200).json(filterResult);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

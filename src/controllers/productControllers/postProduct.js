@@ -19,13 +19,11 @@ const postProduct = async ({
   if (!existingStore) {
     throw new Error("Store not found");
   }
- console.log(brand)
   const [newBrand] = await brand.findOrCreate({
     where: {
       name: brandName,
     },
   });
-  console.log(newBrand)
 
   const createNewProduct = await product.create({
     name,
