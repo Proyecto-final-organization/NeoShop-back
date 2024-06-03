@@ -24,8 +24,8 @@ loginRoutes.post("/", async (req,res) => {
 loginRoutes.post("/auth", async (req,res) => {
     try {
         const {token} = req.body;
-        const auth = loginAuthorization(token);
-        return res.status(200).json({auth});
+        const auth = await loginAuthorization(token);
+        return res.status(200).json(auth);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
