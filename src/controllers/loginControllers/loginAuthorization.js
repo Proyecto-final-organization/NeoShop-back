@@ -9,8 +9,13 @@ const authorization = async (token) => {
         const theUser = await user.findByPk(auth.user);
         return theUser;
     } catch (error) {
-        console.log(error);
-        throw new Error(error.name);
+        if (error instanceof jsonwebtoken.TokenExpiredError) {
+            throw new Error("Token has expired");
+        } else if (error instanceof jsonwebtoken.JsonWebTokenError) {
+            throw new Error("Invalid token");
+        } else {
+            throw new Error("Token verification error");
+        }
     }
 };
 
