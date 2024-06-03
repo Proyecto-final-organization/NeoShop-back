@@ -1,5 +1,5 @@
 const jsonwebtoken = require("jsonwebtoken");
-const { Usuario } = require("../db");
+const { user } = require("../db.js");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -16,7 +16,7 @@ function onlyPublic(req, res, next) {
 }
 
 async function authCookie(req) {
-    const { email } = req.body;
+    const { id_user } = req.body;
     if (!req.headers.cookie || !req.headers.cookie.includes("jwt=")) {
       return false; // Retorna falso si no se encontró la cookie
     }
@@ -32,15 +32,13 @@ async function authCookie(req) {
       );
       console.log("COOKIE: " + cookieJWT);
   
-      const user = await Usuario.findOne({
-        where: { email },
-      });
+      const user = await user.findByPk(id_user);
   
       if (!user) {
         console.log({ status: "Error", message: "Usuario no encontrado" });
         return false; // Retorna falso si el usuario no se encontró
       }
-      if (user.email !== cookieDecodificada.user) {
+      if (user.id_user !== cookieDecodificada.user) {
         return false; // Retorna falso si el usuario no coincide con el de la cookie
       }
       
