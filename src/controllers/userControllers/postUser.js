@@ -1,7 +1,7 @@
 const { user } = require("../../db.js");
 const bcryptjs = require("bcryptjs");
-const mayuscName = require("./helpers/mayuscName.js");
-const validatePostalCode = require("./helpers/validatePostalCode.js");
+const mayuscName = require("../../helpers/mayuscName.js");
+//const validatePostalCode = require("./helpers/validatePostalCode.js");
 
 const postUser = async (data) => {
   let {
