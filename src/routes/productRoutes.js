@@ -10,6 +10,7 @@ const getProductByBrand = require("../controllers/productControllers/getProductB
 const getProductByStore = require("../controllers/productControllers/getProductByStore");
 const getProductsByCategory = require("../controllers/productControllers/getProductByCategory");
 const filterByOptionProducts = require("../controllers/productControllers/filterByOptionProducts");
+const getLastestProducts = require("../controllers/productControllers/getLastestProducts");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
@@ -231,6 +232,16 @@ productRoutes.get("/filter", async (req, res) => {
       maxPoint,
     });
     return res.status(200).json(filterResult);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Ruta para traer los ultimos 8 productos añadidos
+productRoutes.get("/latest", async (req, res) => {
+  try {
+    const products = await getLastestProducts();
+    return res.status(200).json(products);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
