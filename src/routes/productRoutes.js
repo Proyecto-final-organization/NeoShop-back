@@ -11,6 +11,7 @@ const getProductByStore = require("../controllers/productControllers/getProductB
 const getProductsByCategory = require("../controllers/productControllers/getProductByCategory");
 const filterByOptionProducts = require("../controllers/productControllers/filterByOptionProducts");
 const getLastestProducts = require("../controllers/productControllers/getLastestProducts");
+const getAllProductsByStoreId = require("../controllers/productControllers/getAllProductsByStoreId");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
@@ -241,6 +242,25 @@ productRoutes.get("/filter", async (req, res) => {
 productRoutes.get("/latest", async (req, res) => {
   try {
     const products = await getLastestProducts();
+    return res.status(200).json(products);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Ruta para traer todos los productos de una tienda por id
+productRoutes.get("/allProductsStore/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    // Validar que idStore sea un UUID válido
+    const uuidPattern =
+      /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+    if (!uuidPattern.test(id)) {
+      return res
+        .status(400)
+        .json({ error: "Invalid parameter. It must be a valid UUID." });
+    }
+    const products = await getAllProductsByStoreId(id);
     return res.status(200).json(products);
   } catch (error) {
     return res.status(500).json({ error: error.message });
