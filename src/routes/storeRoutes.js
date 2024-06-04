@@ -9,8 +9,8 @@ const getStoreById = require("../controllers/storeControllers/getStoreById");
 //Postea una nueva tienda
 storeRoutes.post("/", async (req, res) => {
     try {
-      const {address_cp, address_country, address_city, name} = req.body;
-      const store = await postStore({address_cp, address_country, address_city, name});
+      const {address_cp, address_country, address_city, name, logo} = req.body;
+      const store = await postStore({address_cp, address_country, address_city, name, logo});
       res.status(200).json(store);
     } catch (error) {
       res.status(500).json({ error: error.message });
