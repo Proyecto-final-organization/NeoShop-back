@@ -1,4 +1,4 @@
-const { product, store, brand, category } = require("../../db.js");
+const { product, brand, store, category } = require("../../db.js");
 const { Sequelize } = require("sequelize");
 
 // Función para eliminar acentos de una cadena
@@ -6,23 +6,26 @@ const removeAccents = (str) => {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
-// Función para buscar productos por nombre utilizando coincidencia difusa
-const getProductByName = async (name) => {
+// Función para buscar productos por marca utilizando coincidencia difusa
+const getProductByBrand = async (name) => {
   const leven = (await import("leven")).default; //Dependencia necesaria para la busqueda difusa(sin extensiones en la DB)
 
   // Normalizamos el nombre buscado para eliminar tildes y convertirlo a minúsculas
   const loweredName = removeAccents(name.toLowerCase());
 
-  // Primero buscamos productos con el nombre dado utilizando iLike
+  // Primero buscamos productos con el nombre de la marca dado utilizando iLike
   const arrayOfProductsOnDB = await product.findAll({
-    where: {
-      name: {
-        [Sequelize.Op.iLike]: `%${loweredName}%`,
-      },
-    },
     include: [
+      {
+        model: brand, // Asegúrate de que `brand` está correctamente importado y definido en la relación
+        as: "brand",
+        where: {
+          name: {
+            [Sequelize.Op.iLike]: `%${loweredName}%`,
+          },
+        },
+      },
       { model: store, as: "store" },
-      { model: brand, as: "brand" },
       { model: category, as: "categories" },
     ],
   });
@@ -34,16 +37,16 @@ const getProductByName = async (name) => {
   // Si no se encuentra por iLike, obtenemos todos los productos de la base de datos
   const allProducts = await product.findAll({
     include: [
-      { model: store, as: "store" },
       { model: brand, as: "brand" },
+      { model: store, as: "store" },
       { model: category, as: "categories" },
     ],
   });
 
-  // Normalizamos los nombres de los productos para eliminar tildes
+  // Normalizamos los nombres de las marcas para eliminar tildes
   const allProductsNormalized = allProducts.map((prod) => ({
     ...prod.dataValues,
-    normalizedName: removeAccents(prod.name.toLowerCase()),
+    normalizedBrandName: removeAccents(prod.brand.name.toLowerCase()),
   }));
 
   const searchWords = loweredName.split(" "); // Separamos el nombre buscado en palabras individuales
@@ -51,16 +54,15 @@ const getProductByName = async (name) => {
   let allFilteredProducts = [];
 
   allProductsNormalized.forEach((prod) => {
-    const prodNameWords = prod.normalizedName.split(" "); // Separamos el nombre del producto en palabras
+    const prodBrandWords = prod.normalizedBrandName.split(" "); // Separamos el nombre de la marca en palabras
     const matched = searchWords.every((searchWord) =>
-      prodNameWords.some((prodWord) => {
+      prodBrandWords.some((prodWord) => {
         const distance = leven(searchWord, prodWord);
         return distance <= Math.ceil(searchWord.length * 0.2); // Umbral del 20%
       })
     );
 
     if (matched) {
-      //Si hay coincidencias lo pushemos al array de productos filtrados
       allFilteredProducts.push(prod);
     }
   });
@@ -94,4 +96,4 @@ const formatProduct = (prod) => {
   };
 };
 
-module.exports = getProductByName;
+module.exports = getProductByBrand;

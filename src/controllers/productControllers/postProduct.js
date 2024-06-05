@@ -1,4 +1,5 @@
 const { product, category, store, brand } = require("../../db.js");
+const mayuscName = require("../../helpers/mayuscName.js");
 
 const postProduct = async ({
   name,
@@ -19,13 +20,26 @@ const postProduct = async ({
   if (!existingStore) {
     throw new Error("Store not found");
   }
- console.log(brand)
+
+  const correctName = mayuscName(name);
+  name = correctName;
+
+  const duplicate = await product.findOne({
+    where: {
+      storeIdStore: existingStore.dataValues.id_store,
+      name: name
+    },
+  });
+  
+  if(duplicate){
+    throw new Error("The product already exists");
+  };
+
   const [newBrand] = await brand.findOrCreate({
     where: {
       name: brandName,
     },
   });
-  console.log(newBrand)
 
   const createNewProduct = await product.create({
     name,
