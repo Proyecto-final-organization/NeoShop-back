@@ -1,6 +1,6 @@
 const { product, store, brand, category } = require("../../db.js");
 
-// Función para buscar productos por tienda utilizando coincidencia difusa
+// Función para buscar todos los productos de una tienda 
 const getAllProductsByStoreId = async (id) => {
   try {
     const arrayOfProductsOnDB = await product.findAll({
