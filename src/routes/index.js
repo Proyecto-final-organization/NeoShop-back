@@ -9,6 +9,7 @@ const fakeApi = require("../utils/montarBaseDeDatos");
 const categoryRoutes = require("./categoryRoutes");
 const brandRoutes = require("./brandRoutes");
 const imagesRoutes = require("./imagesRoutes");
+const cartRoutes = require("./cartRoutes");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
@@ -20,5 +21,6 @@ router.use("/category", categoryRoutes);
 router.use("/brand", brandRoutes);
 router.use("/images", imagesRoutes);
 router.use("/", fakeApi);
+router.use("/cart", cartRoutes);
 
 module.exports = router;

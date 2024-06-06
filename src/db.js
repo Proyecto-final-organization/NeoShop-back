@@ -60,9 +60,9 @@ user.belongsToMany(store, { through: "store_user" });
 user.hasMany(order);
 order.belongsTo(user);
 
-// Relación de User a Cart (1 a 1)
-user.hasOne(cart);
-cart.belongsTo(user);
+// Relación de User a Cart (1 a 1){foreignKey es porque el nombre con el que guardaba era incorrecto}
+user.hasOne(cart, { foreignKey: 'id_user' });
+cart.belongsTo(user, { foreignKey: 'id_user' });
 
 // Relación de product a Review (1 a muchos)
 product.hasMany(review);
