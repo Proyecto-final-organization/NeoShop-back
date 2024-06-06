@@ -6,7 +6,7 @@ const cartByUserId = async (idUser) => {
     where: { id_user: idUser },
   });
 
-  return cartDetails;
+  return cartDetails[0];
 };
 
 module.exports = cartByUserId;
