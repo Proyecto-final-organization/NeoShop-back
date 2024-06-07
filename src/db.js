@@ -14,6 +14,7 @@ const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
+//Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
 const sequelize = new Sequelize(DB_DEPLOY, {
   dialect: "postgres",
   logging: false,
@@ -21,7 +22,7 @@ const sequelize = new Sequelize(DB_DEPLOY, {
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false,
+      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
     },
   },
 });
