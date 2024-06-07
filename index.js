@@ -8,7 +8,7 @@ conn
   .sync({ alter: true })
   .then(() => {
     server.listen(port, async () => {
-      //montarStores()
+      montarStores()
       console.log(`Server listening on port ${port}`);
     });
   })
