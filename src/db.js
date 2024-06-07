@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT,DB_NAME } = process.env;
 const userModel = require("./models/User");
 const productModel = require("./models/Product");
 const orderModel = require("./models/Order");
@@ -14,13 +14,20 @@ const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
-  {
-    logging: false,
-    native: false,
+const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
+  host: DB_HOST,
+  port: DB_PORT,
+  dialect: "postgres",
+  logging: false,
+  native: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false // Usa false solo en desarrollo
+    }
   }
-);
+});
+
 //modelos de la base de datos
 userModel(sequelize);
 productModel(sequelize);
@@ -60,9 +67,9 @@ user.belongsToMany(store, { through: "store_user" });
 user.hasMany(order);
 order.belongsTo(user);
 
-// Relación de User a Cart (1 a 1)
-user.hasOne(cart);
-cart.belongsTo(user);
+// Relación de User a Cart (1 a 1){foreignKey es porque el nombre con el que guardaba era incorrecto}
+user.hasOne(cart, { foreignKey: 'id_user' });
+cart.belongsTo(user, { foreignKey: 'id_user' });
 
 // Relación de product a Review (1 a muchos)
 product.hasMany(review);
