@@ -7,7 +7,7 @@ backend:
 npm install
   build:
     commands:
-npm start # Si tienes un script de build, si no, usa el comando apropiado
+npm start
 artifacts:
   baseDirectory: /
   files:
