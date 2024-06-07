@@ -1,13 +1,18 @@
+// models/Cart.js
 const { DataTypes } = require("sequelize");
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
   sequelize.define(
     "cart",
     {
       id_cart: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+      },
+      product_id: {
+        type: DataTypes.ARRAY(DataTypes.UUID),
+        allowNull: false
       },
       quantity: {
         type: DataTypes.INTEGER,
