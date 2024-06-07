@@ -3,15 +3,14 @@ backend:
   phases:
     preBuild:
       commands:
-        
-npm install
-  build:
-    commands:
-npm start
-artifacts:
-  baseDirectory: /
-  files:
-'*/'
-cache:
-  paths:
-node_modules/*/
+        - npm install
+    build:
+      commands:
+        - npm start
+  artifacts:
+    baseDirectory: /
+    files:
+      - '*/'
+  cache:
+    paths:
+      - node_modules/*/
