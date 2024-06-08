@@ -1,51 +1,27 @@
 module.exports = [
   {
-    name: "Adidas Jacket",
-    img_product: [
-      "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/dh6mhvgoe8u27z8mbj78t7w23xfj/c77c2a06864ac9aca38dc5bd9371de015471edcdbf322dfb14411689bf968ae5",
-    ],
-    description: "Lightblue Jacket with zipper",
-    categoryName: ["Clothes"],
-    price: 120,
-    quantity: 1,
-    fromStore: "Falabella",
-    brand: "ADIDAS",
-  },
-  {
-    name: "Iphone 13",
-    img_product: [
-      "https://tienda.personal.com.ar/images/720/webp/i_Phone_13_Pro_256_GB_Graphite_73f3e06d1c.png",
-    ],
-    description: "Cellphone Iphone 13",
-    categoryName: ["Smartphones"],
-    price: 120,
-    quantity: 1,
-    fromStore: "Musimundo",
-    brand: "APPLE",
-  },
-  {
     name: "Adidas Forum",
     img_product: [
-      "https://newsport.vtexassets.com/arquivos/ids/18415556-800-auto?v=638398790520200000&width=800&height=auto&aspect=true",
+      "https://newsport.vtexassets.com/arquivos/ids/18415556-800-auto?v=638398790520200000&width=800&height=auto&aspect=true"
     ],
     description: "Sneackers color green and white",
     categoryName: ["Clothes"],
     price: 300,
     quantity: 1,
     fromStore: "Falabella",
-    brand: "ADIDAS",
+    brand: "ADIDAS"
   },
   {
     name: "S23 Ultra",
     img_product: [
-      "https://d22fxaf9t8d39k.cloudfront.net/40c63b88178435f76d173b03430fb849743ac10b6d857260f591168815f36cd3155135.jpg",
+      "https://d22fxaf9t8d39k.cloudfront.net/40c63b88178435f76d173b03430fb849743ac10b6d857260f591168815f36cd3155135.jpg"
     ],
     description: "Samsung phone S23 ultra",
     categoryName: ["Smartphones"],
     price: 1000,
     quantity: 1,
     fromStore: "Musimundo",
-    brand: "Samsung",
+    brand: "Samsung"
   },
   {
     name: "Boston Celtics Hat",
@@ -58,7 +34,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "Falabella",
-    brand: "NBA",
+    brand: "NBA"
   },
   {
     name: "Multiprocesor Philips HR-7303/00",
@@ -70,7 +46,7 @@ module.exports = [
     price: 50,
     quantity: 1,
     fromStore: "Musimundo",
-    brand: "Philips",
+    brand: "Philips"
   },
   {
     name: "Xbox Joystick",
@@ -82,7 +58,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "CompraGamer",
-    brand: "Microsoft",
+    brand: "Microsoft"
   },
   {
     name: "Gryffindor scarf",
@@ -94,7 +70,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "Falabella",
-    brand: "Harry Potter",
+    brand: "Harry Potter"
   },
   {
     name: "Lander women's boots",
@@ -109,7 +85,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "Montagne",
-    brand: "Lander",
+    brand: "Lander"
   },
   {
     name: "Lander women's sneakers",
@@ -122,7 +98,7 @@ module.exports = [
     price: 80,
     quantity: 1,
     fromStore: "Montagne",
-    brand: "Lander",
+    brand: "Lander"
   },
   {
     name: "Lander men's hiking boots",
@@ -135,7 +111,7 @@ module.exports = [
     price: 120,
     quantity: 1,
     fromStore: "Montagne",
-    brand: "Lander",
+    brand: "Lander"
   },
   {
     name: "Lander women's backpack",
@@ -147,7 +123,7 @@ module.exports = [
     price: 50,
     quantity: 1,
     fromStore: "Montagne",
-    brand: "Lander",
+    brand: "Lander"
   },
   {
     name: "Lander men's tent",
@@ -160,7 +136,7 @@ module.exports = [
     price: 150,
     quantity: 1,
     fromStore: "Montagne",
-    brand: "Lander",
+    brand: "Lander"
   },
   {
     name: "MIDEA AIR CONDITIONING",
@@ -173,7 +149,7 @@ module.exports = [
     price: 500,
     quantity: 1,
     fromStore: "Garbarino",
-    brand: "Midea",
+    brand: "Midea"
   },
   {
     name: "Caloventor Stove",
@@ -186,7 +162,7 @@ module.exports = [
     price: 500,
     quantity: 1,
     fromStore: "Garbarino",
-    brand: "BKF",
+    brand: "BKF"
   },
   {
     name: "Nakan USB to Micro USB charging cable 0.9m",
@@ -199,7 +175,7 @@ module.exports = [
     price: 2,
     quantity: 1,
     fromStore: "Garbarino",
-    brand: "Nakan",
+    brand: "Nakan"
   },
   {
     name: "Yerba Mate Canarias 500 Gr",
@@ -212,7 +188,7 @@ module.exports = [
     price: 5,
     quantity: 1,
     fromStore: "Disco",
-    brand: "Canarias",
+    brand: "Canarias"
   },
   {
     name: "Ream A4 Punax",
@@ -225,7 +201,7 @@ module.exports = [
     price: 6,
     quantity: 1,
     fromStore: "Disco",
-    brand: "Punax",
+    brand: "Punax"
   },
   {
     name: "Smooshi Dough Pot",
@@ -238,7 +214,7 @@ module.exports = [
     price: 1,
     quantity: 1,
     fromStore: "Disco",
-    brand: "Smooshi",
+    brand: "Smooshi"
   },
   {
     name: "Nivea Nourishing Milk Body Cream x 400 cc.",
@@ -251,7 +227,7 @@ module.exports = [
     price: 7,
     quantity: 1,
     fromStore: "La Anónima",
-    brand: "Nivea",
+    brand: "Nivea"
   },
   {
     name: "Smooth Microfiber Twin Fitted Sheet",
@@ -264,7 +240,7 @@ module.exports = [
     price: 7,
     quantity: 1,
     fromStore: "Coto",
-    brand: "HOME DESIGN",
+    brand: "HOME DESIGN"
   },
   {
     name: "Classic Cotton STAR Pak 75 Grm",
@@ -277,7 +253,7 @@ module.exports = [
     price: 7,
     quantity: 1,
     fromStore: "Coto",
-    brand: "STAR",
+    brand: "STAR"
   },
   {
     name: "STAR swabs 125u",
@@ -290,7 +266,7 @@ module.exports = [
     price: 2,
     quantity: 1,
     fromStore: "Coto",
-    brand: "STAR",
+    brand: "STAR"
   },
   {
     name: "Konka N17 Black 8/256gb 6.5",
@@ -303,7 +279,7 @@ module.exports = [
     price: 120,
     quantity: 1,
     fromStore: "Naldo Lombardi",
-    brand: "Konka",
+    brand: "Konka"
   },
   {
     name: "Xiaomi redmi note 10C graphite 4/128GB 6.7''",
@@ -316,6 +292,6 @@ module.exports = [
     price: 260,
     quantity: 1,
     fromStore: "Naldo Lombardi",
-    brand: "XIAOMI",
+    brand: "XIAOMI"
   }
 ];
