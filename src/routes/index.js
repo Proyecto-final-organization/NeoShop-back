@@ -20,7 +20,7 @@ router.use("/login", loginRoutes);
 router.use("/category", categoryRoutes);
 router.use("/brand", brandRoutes);
 router.use("/images", imagesRoutes);
-router.use("/", fakeApi);
+router.use("/fake", fakeApi);
 router.use("/cart", cartRoutes);
 
 module.exports = router;
