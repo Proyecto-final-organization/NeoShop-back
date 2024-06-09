@@ -1,13 +1,29 @@
 const admin = require("./firebaseAdmin");
+const { user } = require('../../db.js');
 
 const authGoogle = async (token) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(token);
-        const uid = decodedToken.uid;
+        const { uid, email, email_verified, firebase, name } = decodedToken;
         console.log(decodedToken);
-        // Aquí puedes buscar o crear al usuario en tu base de datos
+    
+        const [theUser, created] = await user.findOrCreate({
+            where: { email },
+            defaults: {
+              id_user: uid,
+              name: name || " ",
+              email_verified,
+              sign_in_provider: firebase.sign_in_provider,
+            },
+          });
+        if(!created){
+            await theUser.update({
+                email_verified,
+                //demas campos a actualizar
+            });
+        };
         
-        return uid;
+        return theUser;
     } catch (error) {
         throw new Error(error.message);
     }
