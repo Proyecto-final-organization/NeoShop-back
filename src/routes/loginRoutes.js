@@ -2,7 +2,7 @@ const { Router } = require("express");
 const loginRoutes = Router();
 const login = require("../controllers/loginControllers/login");
 const loginAuthorization = require("../controllers/loginControllers/loginAuthorization");
-const {authGoogle} = require("../controllers/loginControllers/thirdPartyAuth");
+const authThird = require("../controllers/loginControllers/thirdPartyAuth");
 
 loginRoutes.post("/", async (req,res) => {
     try {
@@ -32,10 +32,10 @@ loginRoutes.post("/auth", async (req,res) => {
     }
 });
 
-loginRoutes.post("/auth/google", async (req,res) => {
+loginRoutes.post("/auth/third", async (req,res) => {
     const { token } = req.body;
   try {
-    const theUser = await authGoogle(token);
+    const theUser = await authThird(token);
     res.status(200).json({ message: 'Authentication successful', theUser });
   } catch (error) {
     res.status(401).json({ message: 'Authentication failed', error: error.message });

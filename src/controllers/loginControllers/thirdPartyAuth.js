@@ -1,10 +1,10 @@
 const admin = require("./firebaseAdmin");
 const { user } = require('../../db.js');
 
-const authGoogle = async (token) => {
+const authThird = async (token) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(token);
-        const { uid, email, email_verified, firebase, name } = decodedToken;
+        const { uid, email, email_verified, firebase, name, picture } = decodedToken;
         console.log(decodedToken);
     
         const [theUser, created] = await user.findOrCreate({
@@ -14,6 +14,7 @@ const authGoogle = async (token) => {
               name: name || " ",
               email_verified,
               sign_in_provider: firebase.sign_in_provider,
+              picture: picture || " ",
             },
           });
         if(!created){
@@ -29,6 +30,4 @@ const authGoogle = async (token) => {
     }
 };
 
-module.exports = {
-    authGoogle
-};
+module.exports = authThird;

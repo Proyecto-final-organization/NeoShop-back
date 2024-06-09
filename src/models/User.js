@@ -88,6 +88,9 @@ module.exports = (sequelize) => {
       },
       sign_in_provider: {
         type: DataTypes.STRING
+      },
+      picture: {
+        type: DataTypes.STRING
       }
     },
     { timestamps: false }
