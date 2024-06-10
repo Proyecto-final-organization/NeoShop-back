@@ -7,14 +7,13 @@ module.exports = (sequelize) => {
     "user",
     {
       id_user: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4, 
         primaryKey: true,
         unique: true,
       },
       nro_document: {
         type: DataTypes.STRING,
-        primaryKey: true,
         validate: {
           len: [1, 20],
           isAlphanumeric: true,
@@ -22,17 +21,17 @@ module.exports = (sequelize) => {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       lastname: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      verified_email: {
+      email_verified: {
         type: DataTypes.BOOLEAN(),
         allowNull: false,
         defaultValue: false,
@@ -47,7 +46,7 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING(),
-        allowNull: false
+        allowNull: true //se permite null para poder cargar usuarios autenticados por terceros
       },
       adress_street: {
         type: DataTypes.STRING,
@@ -87,6 +86,12 @@ module.exports = (sequelize) => {
         defaultValue: "shoppeer",
         allowNull: true,
       },
+      sign_in_provider: {
+        type: DataTypes.STRING
+      },
+      picture: {
+        type: DataTypes.STRING
+      }
     },
     { timestamps: false }
   );

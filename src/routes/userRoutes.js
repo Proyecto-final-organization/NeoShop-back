@@ -12,7 +12,6 @@ userRoutes.post("/", async (req, res) => {
       password,
       city,
       state,
-      postalCode,
       email,
       nro_document,
     } = req.body;
@@ -22,7 +21,6 @@ userRoutes.post("/", async (req, res) => {
       password,
       city,
       state,
-      postalCode,
       email,
       nro_document,
     });
