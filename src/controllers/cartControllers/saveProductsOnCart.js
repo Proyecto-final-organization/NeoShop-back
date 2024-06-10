@@ -1,48 +1,54 @@
 const { user, cart, product } = require("../../db.js");
 
-//Este controller guarda y actualiza los datos del card de un usuario en especifico
 async function saveProductsOnCart(data) {
-  const { idUser, arrayProducts } = data; // Desestructuramos el form
+  const { idUser, arrayProducts } = data;
 
-  // Comprobamos que exista el usuario
   const userExist = await user.findByPk(idUser);
   if (!userExist) {
     throw new Error("The user does not exist");
   }
 
-  // Comprobamos que exista el carrito
-  let existCart = await cart.findOne({ where: { id_user: idUser } });
+  const groupedProducts = arrayProducts.reduce((acc, item) => {
+    const found = acc.find(product => product.id_product === item.id_product);
+    if (found) {
+      found.cartQuantity += item.cartQuantity;
+    } else {
+      acc.push({ ...item });
+    }
+    return acc;
+  }, []);
 
-  // Obtener los detalles de los productos incluidos en el carrito (para sumar el total)
+  const productIds = groupedProducts.map(item => item.id_product);
   const productsDetails = await product.findAll({
-    where: { id_product: arrayProducts },
+    where: { id_product: productIds },
   });
 
   if (!productsDetails.length) {
     throw new Error("No valid products found");
   }
 
-  // Calcular el total sumando los precios de los productos
-  const total = productsDetails.reduce(
-    (acc, prod) => acc + Number(prod.price),
-    0
-  );
+  const total = groupedProducts.reduce((acc, item) => {
+    const productDetail = productsDetails.find(prod => prod.id_product === item.id_product);
+    if (productDetail) {
+      return acc + (Number(productDetail.price) * item.cartQuantity);
+    }
+    return acc;
+  }, 0);
+
+  let existCart = await cart.findOne({ where: { id_user: idUser } });
 
   if (!existCart) {
-    // Si no existe el carrito, creamos uno nuevo
     await cart.create({
       id_user: idUser,
-      product_id: arrayProducts,
-      quantity: arrayProducts.length,
+      cartProducts: groupedProducts,
       total: total,
     });
   } else {
-    // Si existe, actualizamos los productos y la cantidad
-    existCart.product_id = arrayProducts;
-    existCart.quantity = arrayProducts.length;
+    existCart.cartProducts = groupedProducts;
     existCart.total = total;
     await existCart.save();
   }
+
 
   return "Shopping cart updated successfully";
 }

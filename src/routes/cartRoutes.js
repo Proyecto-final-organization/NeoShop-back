@@ -33,15 +33,6 @@ cartRoutes.post("/", async (req, res) => {
         .json({ error: "The user id must be a valid UUID." });
     }
 
-    // Validar que los IDs de los productos sean UUIDs válidos
-    for (const productId of arrayProducts) {
-      if (!uuidPattern.test(productId)) {
-        return res
-          .status(400)
-          .json({ error: `The product id must be a valid UUID.` });
-      }
-    }
-
     const message = await saveProductsOnCart({ idUser, arrayProducts });
     res.status(200).json({ message });
   } catch (error) {
