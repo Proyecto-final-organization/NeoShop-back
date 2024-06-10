@@ -11,6 +11,7 @@ const postProduct = async ({
   fromStore,
   brand: brandName,
 }) => {
+  
   const existingStore = await store.findOne({
     where: {
       name: fromStore,
