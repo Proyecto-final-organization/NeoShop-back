@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(cookieParser());
 server.use(
     cors({
-      origin: "http://localhost:5173", // Cambia esto al dominio de tu frontend
+      origin: ["http://localhost:5173", "http://localhost:3000"], // Cambia esto al dominio de tu frontend
       credentials: true, // Habilita el envío de cookies
     })
   );
