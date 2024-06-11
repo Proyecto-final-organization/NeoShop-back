@@ -11,6 +11,7 @@ const brandRoutes = require("./brandRoutes");
 const imagesRoutes = require("./imagesRoutes");
 const cartRoutes = require("./cartRoutes");
 const payingRoutes = require("./payingRoutes");
+const payPalRouter = require("./payPalRoutes");
 
 //fakes stores
 const montarStores = require("../utils/montarStores");
@@ -26,6 +27,7 @@ router.use("/category", categoryRoutes);
 router.use("/brand", brandRoutes);
 router.use("/images", imagesRoutes);
 router.use("/paying", payingRoutes);
+router.use("/paypal", payPalRouter);
 router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
 
