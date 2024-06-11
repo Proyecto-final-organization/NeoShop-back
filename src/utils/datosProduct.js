@@ -162,7 +162,7 @@ module.exports = [
     categoryName: ["Clothes"],
     price: 120,
     quantity: 1,
-    fromStore: "Falavella",
+    fromStore: "Falabella",
     brand: "ADIDAS",
   },
   {
@@ -186,7 +186,7 @@ module.exports = [
     categoryName: ["Clothes"],
     price: 300,
     quantity: 1,
-    fromStore: "Falavella",
+    fromStore: "Falabella",
     brand: "ADIDAS",
   },
   {
@@ -211,7 +211,7 @@ module.exports = [
     categoryName: ["Clothes"],
     price: 100,
     quantity: 1,
-    fromStore: "Falavella",
+    fromStore: "Falabella",
     brand: "NBA",
   },
   {
@@ -247,7 +247,7 @@ module.exports = [
     categoryName: ["Clothes", "Geek"],
     price: 100,
     quantity: 1,
-    fromStore: "Falavella",
+    fromStore: "Falabella",
     brand: "Harry Potter",
   },
   {

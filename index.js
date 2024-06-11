@@ -5,7 +5,7 @@ const { conn } = require("./src/db.js");
 const montarStores = require("./src/utils/montarStores.js");
 
 conn
-  .sync({ alter: true })
+  .sync({ force: true })
   .then(() => {
     server.listen(port, async () => {
       montarStores()
