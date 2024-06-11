@@ -1,4 +1,3 @@
-// models/Cart.js
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
@@ -10,13 +9,9 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      product_id: {
-        type: DataTypes.ARRAY(DataTypes.UUID),
+      cartProducts: {  // Cambiado de 'products' a 'cartProducts'
+        type: DataTypes.ARRAY(DataTypes.JSONB),
         allowNull: false
-      },
-      quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
       },
       total: {
         type: DataTypes.FLOAT,

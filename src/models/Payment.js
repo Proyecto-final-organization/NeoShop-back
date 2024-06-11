@@ -10,6 +10,16 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        unique: true,
+      },
+      id_user: {
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      paymentProducts: {  
+        type: DataTypes.ARRAY(DataTypes.JSONB),
+        allowNull: false
       },
       date: {
         type: DataTypes.DATE,

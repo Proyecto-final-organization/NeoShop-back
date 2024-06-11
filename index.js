@@ -5,7 +5,11 @@ const { conn } = require("./src/db.js");
 const montarStores = require("./src/utils/montarStores.js");
 
 conn
+<<<<<<< HEAD
   .sync({ force: true })
+=======
+  .sync({ alter: true })//cambiar a force para trabajar localmente //alter para pushearlo
+>>>>>>> dev
   .then(() => {
     server.listen(port, async () => {
       montarStores()

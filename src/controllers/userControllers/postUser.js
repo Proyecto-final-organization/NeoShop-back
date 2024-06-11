@@ -10,7 +10,6 @@ const postUser = async (data) => {
     password,
     city,
     state,
-    postalCode,
     email,
     nro_document,
   } = data;
@@ -20,7 +19,6 @@ const postUser = async (data) => {
     !password ||
     !city ||
     !state ||
-    !postalCode ||
     !email
   )
     throw new Error("Incomplete data");
@@ -56,7 +54,6 @@ const postUser = async (data) => {
       password: hashPassword,
       city,
       state,
-      postalCode,
       nro_document,
     },
   });
