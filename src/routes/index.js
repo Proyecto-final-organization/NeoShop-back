@@ -24,5 +24,6 @@ router.use("/images", imagesRoutes);
 router.use("/paying", payingRoutes);
 router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
+router.use("/paypal", payPalRouter); // Las rutas de PayPal
 
 module.exports = router;
