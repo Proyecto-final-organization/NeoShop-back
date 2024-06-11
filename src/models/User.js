@@ -63,7 +63,7 @@ module.exports = (sequelize) => {
       state: {
         type: DataTypes.STRING,
       },
-      brithdate: {
+      birthdate: {
         type: DataTypes.DATEONLY,
       },
       date_creation: {

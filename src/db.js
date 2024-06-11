@@ -16,7 +16,7 @@ const brandModel = require("./models/Brand");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
 
-//? Descomentar esto para trabajar localmente
+// Descomentar esto para trabajar localmente
 // const sequelize = new Sequelize(
 //   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
 //   { logging: false, native: false }
