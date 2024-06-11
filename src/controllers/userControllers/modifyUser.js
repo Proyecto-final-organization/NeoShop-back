@@ -19,7 +19,7 @@ const modifyUser = async (data) => {
         throw new Error("The email is already associated with an account");
     }
 
-    const regexName = /^[a-zA-Z\s'-]+$/;
+    const regexName = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/;
     if(name){
         if(!regexName.test(name)) throw new Error("Invalid Name");
         const correctName = mayuscName(name);

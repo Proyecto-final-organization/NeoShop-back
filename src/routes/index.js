@@ -12,6 +12,10 @@ const imagesRoutes = require("./imagesRoutes");
 const cartRoutes = require("./cartRoutes");
 const payingRoutes = require("./payingRoutes");
 
+//fakes stores
+const montarStores = require("../utils/montarStores");
+router.use("/fakesStores", montarStores);
+
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 router.use("/product", productRoutes);
