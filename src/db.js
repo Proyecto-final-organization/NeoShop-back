@@ -31,11 +31,12 @@ const sequelize = new Sequelize(
 =======
 
 // Descomentar esto para trabajar localmente
-// const sequelize = new Sequelize(
-//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
-//   { logging: false, native: false }
-// );
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
+  { logging: false, native: false }
+);
 
+<<<<<<< HEAD
 //? Comentar esto para trabajar localmente
 const sequelize = new Sequelize(DB_DEPLOY, {
   dialect: "postgres",
@@ -49,6 +50,20 @@ const sequelize = new Sequelize(DB_DEPLOY, {
   },
 });
 >>>>>>> dev
+=======
+// Comentar esto para trabajar localmente
+// const sequelize = new Sequelize(DB_DEPLOY, {
+//   dialect: "postgres",
+//   logging: false,
+//   native: false,
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false,
+//     },
+//   },
+// });
+>>>>>>> 20219e51cad96c929d9759d7543db8bcaed1da9a
 
 //modelos de la base de datos
 userModel(sequelize);

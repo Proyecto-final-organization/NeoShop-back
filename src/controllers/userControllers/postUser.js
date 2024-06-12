@@ -29,7 +29,7 @@ const postUser = async (data) => {
   const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
   if(!regexPassword.test(password)) throw new Error("Invalid Password");
 
-  const regexName = /^[a-zA-Z\s'-]+$/;
+  const regexName = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/;
   if(!regexName.test(name)) throw new Error("Invalid Name");
   if(!regexName.test(lastname)) throw new Error("Invalid Lastname");
 
