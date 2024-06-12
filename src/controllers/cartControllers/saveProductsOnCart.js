@@ -8,6 +8,18 @@ async function saveProductsOnCart(data) {
     throw new Error("The user does not exist");
   }
 
+  let existCart = await cart.findOne({ where: { id_user: idUser } });
+
+  // Si el array de productos está vacío, vaciamos el carrito
+  if (arrayProducts.length === 0) {
+    if (existCart) {
+      existCart.cartProducts = [];
+      existCart.total = 0;
+      await existCart.save();
+    }
+    return "Shopping cart cleared successfully";
+  }
+
   const groupedProducts = arrayProducts.reduce((acc, item) => {
     const found = acc.find(product => product.id_product === item.id_product);
     if (found) {
@@ -35,8 +47,6 @@ async function saveProductsOnCart(data) {
     return acc;
   }, 0);
 
-  let existCart = await cart.findOne({ where: { id_user: idUser } });
-
   if (!existCart) {
     await cart.create({
       id_user: idUser,
@@ -48,7 +58,6 @@ async function saveProductsOnCart(data) {
     existCart.total = total;
     await existCart.save();
   }
-
 
   return "Shopping cart updated successfully";
 }

@@ -15,14 +15,12 @@ cartRoutes.post("/", async (req, res) => {
     if (!arrayProducts) {
       return res
         .status(400)
-        .json({ error: "The array of products can not be empty" });
+        .json({ error: "Missing data" });
     }
     if (!Array.isArray(arrayProducts)) {
       return res.status(400).json({ error: "The product ids must be an array" });
     }
-    if (arrayProducts.length === 0) {
-      return res.status(400).json({ error: "The array of products can not be empty" });
-    }
+    
 
     // Validar que idUser sea un UUID válido
     const uuidPattern =
