@@ -1,186 +1,5 @@
 module.exports = [
   {
-<<<<<<< HEAD
-    name: "Martillo",
-    description: "Herramienta para golpear",
-    price: "15",
-    quantity: "5",
-    img_product: [
-      "https://indufer.com.ar/wp-content/uploads/2018/07/martillo-carpintero-stanley-51271-D_NQ_NP_607618-MLV26988783339_032018-F-1.jpg",
-    ],
-    fromStore: "Ferreteria Lopez",
-    categoryName: ["Herramienta"],
-    brand: "Fisher",
-  },
-  {
-    name: "Destornillador",
-    description: "Herramienta para ajustar tornillos",
-    price: "8",
-    quantity: "10",
-    img_product: [
-      "https://acdn.mitiendanube.com/stores/001/546/946/products/plano-n-n131-b687bfddc58e5feb5d16152231683467-1024-1024.png",
-    ],
-    fromStore: "Ferreteria Lopez",
-    categoryName: ["Herramienta"],
-    brand: "Her",
-  },
-  {
-    name: "Taladro",
-    description: "Herramienta para perforar",
-    price: "45",
-    quantity: "2",
-    img_product: [
-      "https://acdn.mitiendanube.com/stores/001/127/623/products/taladro-c-percutor-gsb-550-re-13-mm-550-w11-b6759f6f7820d9bc0f15900270399447-640-0.jpg",
-    ],
-    fromStore: "Ferreteria Martinez",
-    categoryName: ["Herramienta", "Electricidad"],
-    brand: "Fisher",
-  },
-  {
-    name: "Sierra circular",
-    description: "Herramienta para cortar madera",
-    price: "75",
-    quantity: "3",
-    img_product: [
-      "https://www.bulonerav.com.ar/wp-content/uploads/2021/10/Captura-de-pantalla-2021-10-05-a-las-15.57.06.png",
-    ],
-    fromStore: "Ferreteria Martinez",
-    categoryName: ["Herramienta", "Carpintería"],
-    brand: "Fisher",
-  },
-  {
-    name: "Nivel de agua",
-    description: "Herramienta para medir la nivelación",
-    price: "20",
-    quantity: "8",
-    img_product: [
-      "https://lh4.googleusercontent.com/proxy/e3mF_ZkeAhj4fNbLGqYGLv39PfANUIhN4QzR6IAlLScrI2UWRxR1D6vX372OMCl2JZ_EVHxYcibPTnoEC_oenFGHwPZkWc9cl19TbUk",
-    ],
-    fromStore: "Ferreteria Lopez",
-    categoryName: ["Herramienta", "Construcción"],
-    brand: "Cat",
-  },
-  {
-    name: "Escalera telescópica",
-    description: "Herramienta para acceder a lugares altos",
-    price: "120",
-    quantity: "1",
-    img_product: [
-      "https://tiendasbuenosaires.com.ar/images/thumbs/0000595_escalera-telescopica-aluminio-38-metros-12-escalones_625.jpeg",
-    ],
-    fromStore: "Ferreteria Martinez",
-    categoryName: ["Herramienta", "Jardinería"],
-    brand: "Fisher",
-  },
-  {
-    name: "Cinta métrica",
-    description: "Herramienta para medir longitudes",
-    price: "10",
-    quantity: "15",
-    img_product: [
-      "https://ronixtools.com/img/media/products/rh-9058/original-638358924739422844.webp",
-    ],
-    fromStore: "Ferreteria Lopez",
-    categoryName: ["Herramienta", "Construcción"],
-    brand: "Cat",
-  },
-  {
-    name: "Llave inglesa",
-    description: "Herramienta para ajustar tuercas y tornillos",
-    price: "15",
-    quantity: "6",
-    img_product: ["https://m.media-amazon.com/images/I/51EN1qNEKFL.jpg"],
-    fromStore: "Ferreteria Martinez",
-    categoryName: ["Herramienta", "Mecánica"],
-    brand: "Fisher",
-  },
-  {
-    name: "Martillo neumático",
-    description: "Herramienta para golpear con fuerza",
-    price: "250",
-    quantity: "1",
-    img_product: [
-      "https://www.alkideba.net/fotos-productos/rrss-alkideba-alquiler-martillo-neumatico-perforador-sh-21-21-kg-en-bizkaia-0-202303171651.jpg",
-    ],
-    fromStore: "Ferreteria Martinez",
-    categoryName: ["Herramienta", "Construcción"],
-    brand: "Her",
-  },
-  {
-    name: "TV 32",
-    description: "Tv Samsung 32 Smart",
-    price: "200",
-    quantity: "1",
-    img_product: [
-      "https://hiperaudio.com.ar/wp-content/uploads/2022/06/SAMS32.png",
-    ],
-    fromStore: "Fravega",
-    categoryName: ["Tecnholgy", "Home"],
-    brand: "Samsung",
-  },
-  {
-    name: "Playstation 5",
-    description: "Videogame Console",
-    price: "600",
-    quantity: "1",
-    img_product: [
-      "https://static-catalog.tiendamia.com/marketplace_images/production/product_74958_mirakl_image_4_large.jpg",
-    ],
-    fromStore: "Fravega",
-    categoryName: ["Tecnholgy"],
-    brand: "Sony",
-  },
-  {
-    name: "Mouse",
-    description: "Hardware",
-    price: "80",
-    quantity: "1",
-    img_product: [
-      "https://s3-sa-east-1.amazonaws.com/saasargentina/oaPmQNJPQeMZynN9AOk5/imagen",
-    ],
-    fromStore: "CompraGamer",
-    categoryName: ["Tecnholgy"],
-    brand: "Logitech",
-  },
-  {
-    name: "Speaker JBL",
-    img_product: [
-      "https://outtec.com.ar/wp-content/uploads/2022/01/JBLGO3REDAM-1.jpg",
-    ],
-    description: "Speaker waterproof",
-    categoryName: ["Tecnholgy", "Home"],
-    quantity: "1",
-    price: 90,
-    fromStore: "CompraGamer",
-    brand: "JBL",
-  },
-  {
-    name: "Adidas Jacket",
-    img_product: [
-      "https://s3.sa-east-1.amazonaws.com/www.vaypol.com.ar/variants/dh6mhvgoe8u27z8mbj78t7w23xfj/c77c2a06864ac9aca38dc5bd9371de015471edcdbf322dfb14411689bf968ae5",
-    ],
-    description: "Lightblue Jacket with zipper",
-    categoryName: ["Clothes"],
-    price: 120,
-    quantity: 1,
-    fromStore: "Falabella",
-    brand: "ADIDAS",
-  },
-  {
-    name: "Iphone 13",
-    img_product: [
-      "https://tienda.personal.com.ar/images/720/webp/i_Phone_13_Pro_256_GB_Graphite_73f3e06d1c.png",
-    ],
-    description: "Cellphone Iphone 13",
-    categoryName: ["Smartphones"],
-    price: 120,
-    quantity: 1,
-    fromStore: "Musimundo",
-    brand: "APPLE",
-  },
-  {
-=======
->>>>>>> dev
     name: "Adidas Forum",
     img_product: [
       "https://newsport.vtexassets.com/arquivos/ids/18415556-800-auto?v=638398790520200000&width=800&height=auto&aspect=true"
@@ -190,11 +9,7 @@ module.exports = [
     price: 300,
     quantity: 1,
     fromStore: "Falabella",
-<<<<<<< HEAD
-    brand: "ADIDAS",
-=======
     brand: "ADIDAS"
->>>>>>> dev
   },
   {
     name: "S23 Ultra",
@@ -219,11 +34,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "Falabella",
-<<<<<<< HEAD
-    brand: "NBA",
-=======
     brand: "NBA"
->>>>>>> dev
   },
   {
     name: "Multiprocesor Philips HR-7303/00",
@@ -259,11 +70,7 @@ module.exports = [
     price: 100,
     quantity: 1,
     fromStore: "Falabella",
-<<<<<<< HEAD
-    brand: "Harry Potter",
-=======
     brand: "Harry Potter"
->>>>>>> dev
   },
   {
     name: "Lander women's boots",
