@@ -8,21 +8,20 @@ const cartRoutes = Router();
 cartRoutes.post("/", async (req, res) => {
   try {
     const { idUser, arrayProducts } = req.body;
-
+    console.log("ID: ",idUser);
+    console.log("Cart: ",arrayProducts);
     if (!idUser) {
       return res.status(400).json({ error: "The user can not be empty" });
     }
     if (!arrayProducts) {
       return res
         .status(400)
-        .json({ error: "The array of products can not be empty" });
+        .json({ error: "Missing data" });
     }
     if (!Array.isArray(arrayProducts)) {
       return res.status(400).json({ error: "The product ids must be an array" });
     }
-    if (arrayProducts.length === 0) {
-      return res.status(400).json({ error: "The array of products can not be empty" });
-    }
+
 
     // Validar que idUser sea un UUID válido
     const uuidPattern =

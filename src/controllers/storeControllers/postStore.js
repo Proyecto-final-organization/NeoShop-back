@@ -29,7 +29,8 @@ async function postStore(data) {
     address_cp,
     address_country,
     address_city,
-    logo
+    logo,
+    id_user
   });
 
   await theUser.addStore(createNewStore);
