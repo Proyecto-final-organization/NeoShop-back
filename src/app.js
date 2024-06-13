@@ -12,7 +12,7 @@ server.use(express.json());
 server.use(cookieParser());
 server.use(
     cors({
-      origin: ["https://neo-shop-front.vercel.app/"], // Cambia esto al dominio de tu frontend
+      origin: ["https://neo-shop-front.vercel.app/", "https://neo-shop-dashboard-ngyjmqsrx-neoshopmarketplace.vercel.app/"], // Cambia esto al dominio de tu frontend
       credentials: true, // Habilita el envío de cookies
     })
   );
