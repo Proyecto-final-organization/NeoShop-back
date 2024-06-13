@@ -11,6 +11,9 @@ conn
       console.log(`Server listening on port ${port}`);
     });
     await montarUsers();
+    console.log("Recordar montar primeros las stores y luego los products");
+    console.log("Para stores: POST http://localhost:3001/fakesStores");
+    console.log("Para products: POST http://localhost:3001/");
   })
   .catch((error) =>
     console.error("Database connection error:", error)
