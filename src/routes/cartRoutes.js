@@ -21,7 +21,7 @@ cartRoutes.post("/", async (req, res) => {
     if (!Array.isArray(arrayProducts)) {
       return res.status(400).json({ error: "The product ids must be an array" });
     }
-
+    
 
     // Validar que idUser sea un UUID válido
     const uuidPattern =
