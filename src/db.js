@@ -17,11 +17,8 @@ const brandModel = require("./models/Brand");
 
 // Descomentar esto para trabajar localmente
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  {
-    logging: false,
-    native: false,
-  }
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
+  { logging: false, native: false }
 );
 
 //modelos de la base de datos

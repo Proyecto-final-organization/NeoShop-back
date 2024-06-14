@@ -150,4 +150,14 @@ payingRoutes.get("/all", async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 });
+
+//Este es para traer todos los pagos de un usuario
+payingRoutes.get("/user", async (req, res) => {
+  try {
+    const allPayments = await getAllPaymentsByUser();
+    return res.status(200).json(allPayments);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
 module.exports = payingRoutes;
