@@ -58,6 +58,9 @@ module.exports = (sequelize) => {
         validate: {
           isUrl: true // Valida que sea una URL válida
         }
+      },
+      id_user: {
+        type: DataTypes.STRING
       }
     },
     { timestamps: false }

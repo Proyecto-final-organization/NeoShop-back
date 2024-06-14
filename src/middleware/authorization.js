@@ -32,13 +32,13 @@ async function authCookie(req) {
       );
       console.log("COOKIE: " + cookieJWT);
   
-      const user = await user.findByPk(id_user);
+      const theUser = await user.findByPk(id_user);
   
-      if (!user) {
+      if (!theUser) {
         console.log({ status: "Error", message: "Usuario no encontrado" });
         return false; // Retorna falso si el usuario no se encontró
       }
-      if (user.id_user !== cookieDecodificada.user) {
+      if (theUser.id_user !== cookieDecodificada.user) {
         return false; // Retorna falso si el usuario no coincide con el de la cookie
       }
       

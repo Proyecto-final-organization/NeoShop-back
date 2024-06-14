@@ -3,6 +3,7 @@ const userRoutes = Router();
 const postUser = require("../controllers/userControllers/postUser");
 const getUsers = require("../controllers/userControllers/getUsers");
 const getUserById = require("../controllers/userControllers/getUserById");
+const modifyUser = require("../controllers/userControllers/modifyUser");
 
 userRoutes.post("/", async (req, res) => {
   try {
@@ -12,7 +13,6 @@ userRoutes.post("/", async (req, res) => {
       password,
       city,
       state,
-      postalCode,
       email,
       nro_document,
     } = req.body;
@@ -22,7 +22,6 @@ userRoutes.post("/", async (req, res) => {
       password,
       city,
       state,
-      postalCode,
       email,
       nro_document,
     });
@@ -45,6 +44,16 @@ userRoutes.get("/:idUser", async (req, res) => {
   try {
     const { idUser } = req.params;
     const userData = await getUserById(idUser);
+    return res.status(200).json(userData);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+userRoutes.put("/update", async (req, res) => {
+  try {
+    const data = req.body;
+    const userData = await modifyUser(data);
     return res.status(200).json(userData);
   } catch (error) {
     return res.status(500).json({ error: error.message });

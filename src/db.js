@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_DEPLOY } = process.env;
+const { DB_USER, DB_PASSWORD,DB_HOST, DB_PORT, DB_NAME  } = process.env;
 const userModel = require("./models/User");
 const productModel = require("./models/Product");
 const orderModel = require("./models/Order");
@@ -14,18 +14,15 @@ const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
-//Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
-const sequelize = new Sequelize(DB_DEPLOY, {
-  dialect: "postgres",
-  logging: false,
-  native: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-    },
-  },
-});
+
+// Descomentar esto para trabajar localmente
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  {
+    logging: false,
+    native: false,
+  }
+);
 
 //modelos de la base de datos
 userModel(sequelize);
@@ -101,6 +98,10 @@ payment.belongsTo(order);
 // Relacion de order a order_item de 1 a muchos
 order.hasMany(order_detail);
 order_detail.belongsTo(order);
+
+// Por ahora asi (Lucas y Mati)
+user.belongsToMany(payment, { through: "user_payments" });
+payment.belongsToMany(user, { through: "user_payments" });
 
 module.exports = {
   //...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
