@@ -6,14 +6,10 @@ const montarUsers = require("./src/utils/montarUsers.js");
 
 conn
   .sync({ alter: true })//cambiar a force para trabajar localmente, alter el otro
-  .then(async () => {
+  .then(() => {
     server.listen(port, async () => {
       console.log(`Server listening on port ${port}`);
     });
-    await montarUsers();
-    console.log("Recordar montar primeros las stores y luego los products");
-    console.log("Para stores: POST http://localhost:3001/fakesStores");
-    console.log("Para products: POST http://localhost:3001/");
   })
   .catch((error) =>
     console.error("Database connection error:", error)
