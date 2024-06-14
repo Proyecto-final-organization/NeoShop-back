@@ -1,12 +1,17 @@
-const { product, category, brand } = require("../../db.js");
+const { product, category, store, brand } = require("../../db.js");
 const mayuscName = require("../../helpers/mayuscName.js");
 
 const modifyProduct = async (data) => {
     try {
-        const {id_product} = data;
+        const {id_product, id_store} = data;
 
         const theProduct = await product.findByPk(id_product);
         if(!theProduct) throw new Error("Product not found");
+
+        const theStore = await store.findByPk(id_store);
+        if(!theStore) throw new Error("Store not found");
+
+        if(theProduct.storeIdStore !== theStore.id_store) throw new Error("You do not have permission to perform this action");
 
         if(data.name){
           const correctName = mayuscName(data.name);
