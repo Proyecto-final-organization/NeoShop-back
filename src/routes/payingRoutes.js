@@ -5,6 +5,7 @@ const captureOrder = require("../controllers/payingControllers/captureOrder");
 const postOrder = require("../controllers/payingControllers/postOrder");
 const getPaymentById = require("../controllers/payingControllers/getPaymentById");
 const getAllPayments = require("../controllers/payingControllers/getAllPayments");
+const getAllPaymentsByUser = require("../controllers/payingControllers/getAllPaymentsByUser");
 
 // Capturar una orden
 payingRoutes.post("/capture-order/:orderId", async (req, res) => {
@@ -154,7 +155,8 @@ payingRoutes.get("/all", async (req, res) => {
 //Este es para traer todos los pagos de un usuario
 payingRoutes.get("/user", async (req, res) => {
   try {
-    const allPayments = await getAllPaymentsByUser();
+    const {id_user} = req.body;
+    const allPayments = await getAllPaymentsByUser(id_user);
     return res.status(200).json(allPayments);
   } catch (error) {
     return res.status(500).json({ error: error.message });
