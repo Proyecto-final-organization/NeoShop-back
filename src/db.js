@@ -100,6 +100,10 @@ order_detail.belongsTo(order);
 user.belongsToMany(payment, { through: "user_payments" });
 payment.belongsToMany(user, { through: "user_payments" });
 
+// Relación de User a Category (uno a muchos)
+user.hasMany(category);
+category.belongsTo(user);
+
 module.exports = {
   //...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   product,
