@@ -1,26 +1,29 @@
 const { category } = require("../../db.js");
 
 async function createCategory(data) {
-  const { name } = data;
+  const { name, userId } = data;
 
-  if (!name) {
+  if (!name || !userId) {
     throw new Error("Missing data");
   }
 
   // Verificar si ya existe una marca con el mismo nombre y dirección
-  const existingCateory = await category.findOne({
+  const existingCategory = await category.findOne({
     where: {
       name,
     },
   });
 
-  if (existingCateory) {
+  if (existingCategory) {
     throw new Error("The store name is already in use");
   }
 
-  const newCateory = await category.create({ name:name,});
+  const newCategory = await category.create({
+    name,
+    u
+  });
 
-  return { message: "Cateory saved successfully", Cateory: newCateory };
+  return { message: "Category saved successfully", Category: newCategory };
 }
 
 module.exports = createCategory;

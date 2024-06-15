@@ -12,7 +12,7 @@ async function getLastestProducts(req, res) {
         },
         {
           model: store,
-          attributes: ["name"],
+          attributes: ["name","logo", "id_store"],
         },
         {
           model: brand,
