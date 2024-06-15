@@ -10,6 +10,7 @@ async function postOrder(data) {
 
   const createNewPayment = await payment.create({
     id_payment,
+    id_user,
     paymentProducts: arrayProducts,
     amount,
     date,

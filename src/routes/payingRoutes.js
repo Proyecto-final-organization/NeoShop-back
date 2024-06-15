@@ -46,6 +46,7 @@ payingRoutes.post("/create-order", async (req, res) => {
 
 //Funcion para postear pagos
 payingRoutes.post("/post-order", async (req, res) => {
+  console.log("Llega a post order")
   try {
     const uuidPattern =
       /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
@@ -55,6 +56,7 @@ payingRoutes.post("/post-order", async (req, res) => {
 
     // Verifica que no falte nada
     if (!id_payment || !arrayProducts || !id_user || !amount || !date) {
+      console.log("FALTAN DATOS")
       return res.status(400).json({ error: "Missing data" });
     }
 
@@ -62,11 +64,14 @@ payingRoutes.post("/post-order", async (req, res) => {
     const parsedDate = new Date(date);
     // Verificar que el objeto Date es válido
     if (!parsedDate instanceof Date && !isNaN(parsedDate)) {
+      console.log("LA FECHA NO ES VALIDA")
+
       return res.status(400).json({ error: "Invalid date" });
     }
 
     // Verifica que id_payment sea un string
     if (typeof id_payment !== "string") {
+      console.log("EL ID PAYMENT NO ES VALIDO")
       errors.push("Invalid id_payment");
     }
 
@@ -75,37 +80,41 @@ payingRoutes.post("/post-order", async (req, res) => {
       !Array.isArray(arrayProducts) ||
       !arrayProducts.every((item) => typeof item === "object")
     ) {
+      console.log("ARRAY PRODUCTS ERROR")
       errors.push("arrayProducts must be an array of objects");
     }
 
-    // Verificar los datos dentro de los objetos del array de productos
-    arrayProducts.forEach((item) => {
-      // Verifica que cada producto tiene la propiedad productQuantity y es un número
-      if (
-        !item.hasOwnProperty("productQuantity") ||
-        typeof item.productQuantity !== "number"
-      ) {
-        errors.push("Each product must have a numeric productQuantity");
-      }
+    // // Verificar los datos dentro de los objetos del array de productos
+    // arrayProducts.forEach((item) => {
+    //   // Verifica que cada producto tiene la propiedad productQuantity y es un número
+    //   if (
+    //     !item.hasOwnProperty("productQuantity") 
+    //     typeof item.productQuantity !== "number"
+    //   ) {
+    //     console.log("LOS PRODUCTOS DEBEN TENER UN NUMERO")
+    //     errors.push("Each product must have a numeric productQuantity");
+    //   }
 
-      // Verifica que cada producto tiene la propiedad id_product y es un UUID válido
-      if (
-        !item.hasOwnProperty("id_product") ||
-        !uuidPattern.test(item.id_product)
-      ) {
-        errors.push("Each product must have a valid id_product UUID");
-      }
-    });
+    //   // Verifica que cada producto tiene la propiedad id_product y es un UUID válido
+    //   if (
+    //     !item.hasOwnProperty("id_product") ||
+    //     !uuidPattern.test(item.id_product)
+    //   ) {
+    //     console.log("EL PRODUCTO DEBE TENER ID UUID")
+    //     errors.push("Each product must have a valid id_product UUID");
+    //   }
+    // });
 
     // Verifica que amount sea un string
     if (typeof amount !== "string") {
+      console.log("LA CANTIDAD DEBE SER UN STRING")
       errors.push("Invalid amount");
     }
 
     // Valida que id_user sea un UUID válido
-    if (!uuidPattern.test(id_user)) {
-      errors.push("Invalid id_user. It must be a valid UUID.");
-    }
+    // if (!uuidPattern.test(id_user)) {
+    //   errors.push("Invalid id_user. It must be a valid UUID.");
+    // }
 
     // Si hay errores, responder con ellos
     if (errors.length > 0) {
@@ -153,10 +162,10 @@ payingRoutes.get("/all", async (req, res) => {
 });
 
 //Este es para traer todos los pagos de un usuario
-payingRoutes.get("/user", async (req, res) => {
+payingRoutes.get("/user/:user", async (req, res) => {
   try {
-    const {id_user} = req.body;
-    const allPayments = await getAllPaymentsByUser(id_user);
+    const {user} = req.params;
+    const allPayments = await getAllPaymentsByUser(user);
     return res.status(200).json(allPayments);
   } catch (error) {
     return res.status(500).json({ error: error.message });
