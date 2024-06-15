@@ -15,6 +15,7 @@ const payPalRouter = require("./payPalRoutes");
 
 //fakes stores
 const montarStores = require("../utils/montarStores");
+const reviewRoutes = require("./reviewRoutes");
 router.use("/fakesStores", montarStores);
 
 // Configurar los routers
@@ -31,5 +32,6 @@ router.use("/paypal", payPalRouter);
 router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
 router.use("/paypal", payPalRouter); // Las rutas de PayPal
+router.use("/review", reviewRoutes); 
 
 module.exports = router;
