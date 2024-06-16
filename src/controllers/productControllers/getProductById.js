@@ -1,4 +1,4 @@
-const { product, category, store, brand, review } = require("../../db.js");
+const { product, category, store, brand, review, user } = require("../../db.js");
 const averageProductRating = require("../reviewControllers/averageProductRating.js");
 
 const getProductById = async (idProduct) => {
@@ -20,7 +20,13 @@ const getProductById = async (idProduct) => {
         },
         {
           model: review,
-          attributes: ["comment", "rating"],
+          attributes: ["comment", "rating", "date"], // Incluir la fecha de la review
+          include: [
+            {
+              model: user,
+              attributes: ["name"], // Incluir el nombre del usuario que generó la review
+            },
+          ],
         },
       ],
     });
