@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_DEPLOY } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 const userModel = require("./models/User");
 const productModel = require("./models/Product");
 const orderModel = require("./models/Order");
