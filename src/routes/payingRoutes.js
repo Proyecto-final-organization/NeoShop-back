@@ -6,6 +6,7 @@ const postOrder = require("../controllers/payingControllers/postOrder");
 const getPaymentById = require("../controllers/payingControllers/getPaymentById");
 const getAllPayments = require("../controllers/payingControllers/getAllPayments");
 const getAllPaymentsByUser = require("../controllers/payingControllers/getAllPaymentsByUser");
+const getAllPaymentsByStore = require("../controllers/payingControllers/getAllPaymentsByStore");
 
 // Capturar una orden
 payingRoutes.post("/capture-order/:orderId", async (req, res) => {
@@ -46,7 +47,7 @@ payingRoutes.post("/create-order", async (req, res) => {
 
 //Funcion para postear pagos
 payingRoutes.post("/post-order", async (req, res) => {
-  console.log("Llega a post order")
+  console.log("Llega a post order");
   try {
     const uuidPattern =
       /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
@@ -56,7 +57,7 @@ payingRoutes.post("/post-order", async (req, res) => {
 
     // Verifica que no falte nada
     if (!id_payment || !arrayProducts || !id_user || !amount || !date) {
-      console.log("FALTAN DATOS")
+      console.log("FALTAN DATOS");
       return res.status(400).json({ error: "Missing data" });
     }
 
@@ -64,14 +65,14 @@ payingRoutes.post("/post-order", async (req, res) => {
     const parsedDate = new Date(date);
     // Verificar que el objeto Date es válido
     if (!parsedDate instanceof Date && !isNaN(parsedDate)) {
-      console.log("LA FECHA NO ES VALIDA")
+      console.log("LA FECHA NO ES VALIDA");
 
       return res.status(400).json({ error: "Invalid date" });
     }
 
     // Verifica que id_payment sea un string
     if (typeof id_payment !== "string") {
-      console.log("EL ID PAYMENT NO ES VALIDO")
+      console.log("EL ID PAYMENT NO ES VALIDO");
       errors.push("Invalid id_payment");
     }
 
@@ -80,7 +81,7 @@ payingRoutes.post("/post-order", async (req, res) => {
       !Array.isArray(arrayProducts) ||
       !arrayProducts.every((item) => typeof item === "object")
     ) {
-      console.log("ARRAY PRODUCTS ERROR")
+      console.log("ARRAY PRODUCTS ERROR");
       errors.push("arrayProducts must be an array of objects");
     }
 
@@ -88,7 +89,7 @@ payingRoutes.post("/post-order", async (req, res) => {
     // arrayProducts.forEach((item) => {
     //   // Verifica que cada producto tiene la propiedad productQuantity y es un número
     //   if (
-    //     !item.hasOwnProperty("productQuantity") 
+    //     !item.hasOwnProperty("productQuantity")
     //     typeof item.productQuantity !== "number"
     //   ) {
     //     console.log("LOS PRODUCTOS DEBEN TENER UN NUMERO")
@@ -107,7 +108,7 @@ payingRoutes.post("/post-order", async (req, res) => {
 
     // Verifica que amount sea un string
     if (typeof amount !== "string") {
-      console.log("LA CANTIDAD DEBE SER UN STRING")
+      console.log("LA CANTIDAD DEBE SER UN STRING");
       errors.push("Invalid amount");
     }
 
@@ -164,8 +165,19 @@ payingRoutes.get("/all", async (req, res) => {
 //Este es para traer todos los pagos de un usuario
 payingRoutes.get("/user/:user", async (req, res) => {
   try {
-    const {user} = req.params;
+    const { user } = req.params;
     const allPayments = await getAllPaymentsByUser(user);
+    return res.status(200).json(allPayments);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+// Nueva ruta para obtener todas las compras por ID de tienda
+payingRoutes.get("/store/:storeId", async (req, res) => {
+  try {
+    const { storeId } = req.params;
+    const allPayments = await getAllPaymentsByStore(storeId);
     return res.status(200).json(allPayments);
   } catch (error) {
     return res.status(500).json({ error: error.message });

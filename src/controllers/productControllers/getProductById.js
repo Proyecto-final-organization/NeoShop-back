@@ -1,6 +1,5 @@
 const { product, category, store, brand } = require("../../db.js");
 
-//Esta funcion busca productos por id
 const getProductById = async (idProduct) => {
   const productSearch = await product.findByPk(idProduct, {
     include: [
@@ -21,11 +20,18 @@ const getProductById = async (idProduct) => {
   });
 
   if (productSearch === null) {
-    //comprobamos que exista el producto
     throw new Error("the product was not found on the database");
   }
 
-  return productSearch;
+  // Formatear los datos
+  const formattedProduct = {
+    ...productSearch.toJSON(),
+    categories: productSearch.categories.map(cat => cat.name),
+    brand: productSearch.brand.name,
+    store: productSearch.store.name,
+  };
+
+  return formattedProduct;
 };
 
 module.exports = getProductById;
