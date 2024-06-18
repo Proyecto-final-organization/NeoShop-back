@@ -12,6 +12,7 @@ const cartModel = require("./models/Cart");
 const discountsModel = require("./models/Discounts");
 const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
+
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
 
 // Descomentar esto para trabajar localmente
@@ -66,6 +67,10 @@ cart.belongsTo(user, { foreignKey: 'id_user' });
 // Relación de product a Review (1 a muchos)
 product.hasMany(review);
 review.belongsTo(product);
+
+//Relación de review a usuarios (muchos a 1)
+user.hasMany(review)
+review.belongsTo(user)
 
 //relacion de store a producto de 1 a muchos
 store.hasMany(product);

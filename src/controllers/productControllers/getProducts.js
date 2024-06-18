@@ -1,4 +1,4 @@
-const { product, category, store, brand } = require("../../db.js");
+const { product, category, store, brand, review } = require("../../db.js");
 
 //This function get all the products from our DB
 async function getProducts(req, res) {
@@ -16,6 +16,10 @@ async function getProducts(req, res) {
       {
         model: brand,
         attributes: ["name"],
+      },
+      {
+        model: review,
+        attributes: ["comment", "rating"],
       },
     ],
   });

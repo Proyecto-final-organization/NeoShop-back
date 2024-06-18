@@ -1,23 +1,35 @@
-const { product, category, store, brand } = require("../../db.js");
+const { product, category, store, brand, review, user } = require("../../db.js");
+const averageProductRating = require("../reviewControllers/averageProductRating.js");
 
 const getProductById = async (idProduct) => {
-  const productSearch = await product.findByPk(idProduct, {
-    include: [
-      {
-        model: category,
-        through: { attributes: [] },
-        attributes: ["name"],
-      },
-      {
-        model: store,
-        attributes: ["name"],
-      },
-      {
-        model: brand,
-        attributes: ["name"],
-      },
-    ],
-  });
+  try {
+    const productSearch = await product.findByPk(idProduct, {
+      include: [
+        {
+          model: category,
+          through: { attributes: [] },
+          attributes: ["name"],
+        },
+        {
+          model: store,
+          attributes: ["name"],
+        },
+        {
+          model: brand,
+          attributes: ["name"],
+        },
+        {
+          model: review,
+          attributes: ["comment", "rating", "date"], // Incluir la fecha de la review
+          include: [
+            {
+              model: user,
+              attributes: ["name"], // Incluir el nombre del usuario que generó la review
+            },
+          ],
+        },
+      ],
+    });
 
   if (productSearch === null) {
     throw new Error("the product was not found on the database");
