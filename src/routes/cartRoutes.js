@@ -8,35 +8,26 @@ const cartRoutes = Router();
 //Esta funcion crea o actualiza la informacion del carrito de cada usuario
 cartRoutes.post("/", async (req, res) => {
   try {
-    const { productQuantity, idProduct, idUser } = req.body;
+    const { idUser, arrayProducts } = req.body;
 
-    if (!idUser || !productQuantity || !idProduct) {
+    if (!idUser) {
+      return res.status(400).json({ error: "The user can not be empty" });
+    }
+    if (!arrayProducts) {
       return res.status(400).json({ error: "Missing data" });
     }
-
-    if (typeof productQuantity !== "number") {
-      return res
-        .status(400)
-        .json({ error: "productQuantity must be an number" });
+    if (!Array.isArray(arrayProducts)) {
+      return res.status(400).json({ error: "The product ids must be an array" });
     }
 
-    // Validar que idProduct sea un UUID válido
-    const uuidPattern =
-      /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-    if (!uuidPattern.test(idProduct)) {
-      return res
-        .status(400)
-        .json({ error: "The product id must be a valid UUID." });
+    const uuidPattern = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
+    if (!uuidPattern.test(idUser)) {
+      return res.status(400).json({ error: "The user id must be a valid UUID." });
     }
 
-    const message = await saveProductsOnCart({
-      idUser,
-      productQuantity,
-      idProduct,
-    });
+    const message = await saveProductsOnCart({ idUser, arrayProducts, io: req.io });
     res.status(200).json({ message });
   } catch (error) {
-    console.log("HOLA", error.message);
     res.status(500).json({ error: error.message });
   }
 });

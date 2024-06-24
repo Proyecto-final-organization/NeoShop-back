@@ -15,6 +15,8 @@ const login = async (email, password) => {
     });
     if(!theUser) throw new Error("Wrong email");
 
+    if(theUser.is_active === false) throw new Error("Deleted account");
+
     const correctLogin = await bcryptjs.compare(password, theUser.password);
     if(!correctLogin) throw new Error("Incorrect password");
 
