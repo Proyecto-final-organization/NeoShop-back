@@ -4,6 +4,7 @@ const createCategory = require("../controllers/categoryControllers/createCategor
 const deleteCategoryById = require("../controllers/categoryControllers/deleteCategoryById");
 const getCategoryById = require("../controllers/categoryControllers/getCategoryById");
 const updateCategoryById = require("../controllers/categoryControllers/updateCategoryById");
+const getCategoriesByUserId = require("../controllers/categoryControllers/getCategoriesByUserId");
 const categoryRoutes = Router();
 
 categoryRoutes.get("/", async (req, res) => {
@@ -17,12 +18,12 @@ categoryRoutes.get("/", async (req, res) => {
 
 categoryRoutes.post("/create", async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, userId } = req.body;
 
     if (typeof name !== "string") {
       return res.status(400).json({ error: "The name must be an string" });
     }
-    const newCategory = await createCategory({ name });
+    const newCategory = await createCategory({ name, userId });
     res.status(200).json(newCategory);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -98,4 +99,16 @@ categoryRoutes.post("/update/", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+//Ruta para traer las categorias de un usuario
+categoryRoutes.get("/categories/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const categories = await getCategoriesByUserId(userId);
+    res.status(200).json(categories);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = categoryRoutes;
