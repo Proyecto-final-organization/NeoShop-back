@@ -12,6 +12,7 @@ const cartModel = require("./models/Cart");
 const discountsModel = require("./models/Discounts");
 const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
+const favoritesModel = require("./models/Favorites");
 
 //Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
 
@@ -33,6 +34,7 @@ cartModel(sequelize);
 discountsModel(sequelize);
 storeModel(sequelize);
 brandModel(sequelize);
+favoritesModel(sequelize);
 //Relaciones
 const {
   product,
@@ -46,6 +48,7 @@ const {
   cart,
   category,
   brand,
+  favorites
 } = sequelize.models;
 
 //Relacion de user a product de muchos a muchos, va servir para guardar favoritos del user
@@ -121,5 +124,6 @@ module.exports = {
   cart,
   category,
   brand,
+  favorites,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };

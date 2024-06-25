@@ -59,6 +59,24 @@ const postUser = async (data) => {
   });
 
   if (created) return newUser;
-  else throw new Error("The email is already associated with an account");
+  else{
+    if(newUser.is_active === false){
+      await user.update(
+        { 
+          is_active: true,
+          name,
+          lastname,
+          password: hashPassword,
+          city,
+          state,
+          nro_document,
+        },
+        { where: { email } }
+      );
+      return newUser;
+    }else{
+      throw new Error("The email is already associated with an account");
+    };
+  }; 
 };
 module.exports = postUser;

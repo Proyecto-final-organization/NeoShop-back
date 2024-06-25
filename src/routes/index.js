@@ -12,6 +12,8 @@ const imagesRoutes = require("./imagesRoutes");
 const cartRoutes = require("./cartRoutes");
 const payingRoutes = require("./payingRoutes");
 const payPalRouter = require("./payPalRoutes");
+const mailsRoutes = require("./mailsRoutes");
+const favoritesRoutes = require("./favoritesRoutes");
 
 //fakes stores
 const montarStores = require("../utils/montarStores");
