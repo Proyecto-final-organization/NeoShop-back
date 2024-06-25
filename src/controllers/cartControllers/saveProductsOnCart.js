@@ -1,6 +1,7 @@
 const { user, cart, product } = require("../../db.js");
 
-async function saveProductsOnCart(data) {
+async function saveProductsOnCart(data, io) {
+  console.log(data)
   const { idUser, arrayProducts } = data;
 
   const userExist = await user.findByPk(idUser);
@@ -16,7 +17,7 @@ async function saveProductsOnCart(data) {
       existCart.cartProducts = [];
       existCart.total = 0;
       await existCart.save();
-      io.to(idUser).emit("cartUpdated", existCart);
+      io.to(idUser).emit("cartUpdated", existCart); // Emitir evento de carrito actualizado
     }
     return "Shopping cart cleared successfully";
   }
@@ -62,6 +63,7 @@ async function saveProductsOnCart(data) {
     await existCart.save();
   }
 
+  io.to(idUser).emit("cartUpdated", existCart); // Emitir evento de carrito actualizado
   return "Shopping cart updated successfully";
 }
 

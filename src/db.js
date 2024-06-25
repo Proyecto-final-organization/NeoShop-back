@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD,DB_HOST, DB_PORT, DB_NAME  } = process.env;
 const userModel = require("./models/User");
 const productModel = require("./models/Product");
 const orderModel = require("./models/Order");
@@ -18,8 +18,11 @@ const favoritesModel = require("./models/Favorites");
 
 // Descomentar esto para trabajar localmente
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/neoshop`,
-  { logging: false, native: false }
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  {
+    logging: false,
+    native: false,
+  }
 );
 
 //modelos de la base de datos

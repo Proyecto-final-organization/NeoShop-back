@@ -8,26 +8,15 @@ const cartRoutes = Router();
 // Esta función crea o actualiza la información del carrito de cada usuario
 cartRoutes.post("/", async (req, res) => {
   try {
-    const { idUser, arrayProducts } = req.body;
+    const { arrayProducts, idUser } = req.body;
+    const message = await saveProductsOnCart({
+      idUser,
+      arrayProducts,
+    });
 
-    if (!idUser) {
-      return res.status(400).json({ error: "The user can not be empty" });
-    }
-    if (!arrayProducts) {
-      return res.status(400).json({ error: "Missing data" });
-    }
-    if (!Array.isArray(arrayProducts)) {
-      return res.status(400).json({ error: "The product ids must be an array" });
-    }
-
-    const uuidPattern = /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
-    if (!uuidPattern.test(idUser)) {
-      return res.status(400).json({ error: "The user id must be a valid UUID." });
-    }
-
-    const message = await saveProductsOnCart({ idUser, arrayProducts, io: req.io });
     res.status(200).json({ message });
   } catch (error) {
+    console.error("Error:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
@@ -50,6 +39,7 @@ cartRoutes.get("/id/:idUsuario", async (req, res) => {
     if (typeof idUsuario !== "string") {
       return res.status(400).json("idUsuario must be a string");
     }
+
     const userCart = await cartByUserId(idUsuario);
     return res.status(200).json(userCart);
   } catch (error) {
@@ -61,9 +51,11 @@ cartRoutes.get("/id/:idUsuario", async (req, res) => {
 cartRoutes.delete("/deleteItem", async (req, res) => {
   try {
     const { idUser, idProduct } = req.body;
+
     if (!idUser || !idProduct) {
       return res.status(400).json({ error: "Missing data" });
     }
+
     // Validar que idProduct sea un UUID válido
     const uuidPattern =
       /^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$/;
@@ -72,20 +64,17 @@ cartRoutes.delete("/deleteItem", async (req, res) => {
         .status(400)
         .json({ error: "The product id must be a valid UUID." });
     }
+
     const deletedProductMessage = await deleteProductCart({
       idUser,
       idProduct,
     });
 
-    // Emitir evento de actualización de carrito
-    const io = req.app.get('io');
-    io.emit(`cart_updated_${idUser}`, deletedProductMessage);
-
-    res.status(200).json(deletedProductMessage);
+    res.status(200).json({ message: deletedProductMessage });
   } catch (error) {
+    console.error("Error:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
 module.exports = cartRoutes;
-
