@@ -1,4 +1,4 @@
-const { user, payment, product } = require("../../db.js");
+const { user, payment, product, cart } = require("../../db.js");
 
 async function postOrder(data) {
   const { id_payment, arrayProducts, id_user, amount, date } = data;
@@ -37,6 +37,8 @@ async function postOrder(data) {
   });
 
   await userExist.addPayment(createNewPayment);
+
+  await cart.destroy({where: {id_user}});
 
   return { message: "Payment saved successfully", payment: createNewPayment };
 }
