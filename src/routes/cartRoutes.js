@@ -5,7 +5,7 @@ const cartByUserId = require("../controllers/cartControllers/cartByUserId");
 const deleteProductCart = require("../controllers/cartControllers/deleteProductsCart");
 const cartRoutes = Router();
 
-//Esta funcion crea o actualiza la informacion del carrito de cada usuario
+// Esta función crea o actualiza la información del carrito de cada usuario
 cartRoutes.post("/", async (req, res) => {
   try {
     const { productQuantity, idProduct, idUser } = req.body;
@@ -34,6 +34,11 @@ cartRoutes.post("/", async (req, res) => {
       productQuantity,
       idProduct,
     });
+
+    // Emitir evento de actualización de carrito
+    const io = req.app.get('io');
+    io.emit(`cart_updated_${idUser}`, message);
+
     res.status(200).json({ message });
   } catch (error) {
     console.log("HOLA", error.message);
@@ -41,7 +46,7 @@ cartRoutes.post("/", async (req, res) => {
   }
 });
 
-//Esta funcion trae todos los carritos
+// Esta función trae todos los carritos
 cartRoutes.get("/all", async (req, res) => {
   try {
     const message = await getAllCarts();
@@ -51,13 +56,13 @@ cartRoutes.get("/all", async (req, res) => {
   }
 });
 
-//Este es para traer un cart por id del usuario
+// Este es para traer un cart por id del usuario
 cartRoutes.get("/id/:idUsuario", async (req, res) => {
   try {
     const { idUsuario } = req.params;
 
     if (typeof idUsuario !== "string") {
-      return res.status(400).json("idUsuario must be an strig");
+      return res.status(400).json("idUsuario must be a string");
     }
     const userCart = await cartByUserId(idUsuario);
     return res.status(200).json(userCart);
@@ -66,7 +71,7 @@ cartRoutes.get("/id/:idUsuario", async (req, res) => {
   }
 });
 
-//Ruta para eliminar una  un producto del carrito de un usuario
+// Ruta para eliminar un producto del carrito de un usuario
 cartRoutes.delete("/deleteItem", async (req, res) => {
   try {
     const { idUser, idProduct } = req.body;
@@ -85,6 +90,11 @@ cartRoutes.delete("/deleteItem", async (req, res) => {
       idUser,
       idProduct,
     });
+
+    // Emitir evento de actualización de carrito
+    const io = req.app.get('io');
+    io.emit(`cart_updated_${idUser}`, deletedProductMessage);
+
     res.status(200).json(deletedProductMessage);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -92,3 +102,4 @@ cartRoutes.delete("/deleteItem", async (req, res) => {
 });
 
 module.exports = cartRoutes;
+
