@@ -7,6 +7,7 @@ const cookieParser = require("cookie-parser");
 const invalidRoute = require("./middleware/invalidRoute");
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const sockets = require("./socket");
 
 const whitelist = ["http://localhost:5173", "http://example2.com"]; // Define tu lista blanca aquí
 
@@ -28,16 +29,15 @@ server.use(cookieParser());
 server.use(cors(corsOptions));
 server.use(router);
 server.use(invalidRoute);
-
 const httpServer = createServer(server);
 const io = new Server(httpServer, {
   cors: {
-    origin: "*", // Aquí puedes ajustar el origen según tus necesidades o mantenerlo como "*"
+    origin: "http://localhost:5173", // Aquí puedes ajustar el origen según tus necesidades o mantenerlo como "*"
     methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
 // Almacenar `io` en la aplicación de Express
-server.set("io", io);
-
+sockets(io);
 module.exports = { server, httpServer };

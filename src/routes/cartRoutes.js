@@ -12,7 +12,7 @@ cartRoutes.post("/", async (req, res) => {
     const message = await saveProductsOnCart({
       idUser,
       arrayProducts,
-    });
+    }, req.io);
 
     res.status(200).json({ message });
   } catch (error) {
@@ -68,7 +68,7 @@ cartRoutes.delete("/deleteItem", async (req, res) => {
     const deletedProductMessage = await deleteProductCart({
       idUser,
       idProduct,
-    });
+    }, req.io);
 
     res.status(200).json({ message: deletedProductMessage });
   } catch (error) {

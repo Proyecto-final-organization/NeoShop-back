@@ -1,7 +1,6 @@
 const { user, cart, product } = require("../../db.js");
 
 async function saveProductsOnCart(data, io) {
-  console.log(data)
   const { idUser, arrayProducts } = data;
 
   const userExist = await user.findByPk(idUser);
