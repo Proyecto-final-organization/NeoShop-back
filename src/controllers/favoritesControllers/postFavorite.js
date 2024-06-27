@@ -7,11 +7,12 @@ const postFavorite = async (id_product, id_user) => {
         const theProduct = await product.findByPk(id_product);
         if(!theProduct) throw new Error("Product not found");
 
-        await favorites.create({
-            id_product,
-            id_user
-        });
-        return {message: "Favorite save"};
+        const [newFav, created] = await favorites.findOrCreate({
+            where: { id_product, id_user }
+          });
+
+        if(created) return {message: "Favorite save"};
+        else return {message: "you already have this product added"};
     } catch (error) {
         throw new Error(error.message);
     }
