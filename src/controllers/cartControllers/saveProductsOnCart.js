@@ -16,7 +16,6 @@ async function saveProductsOnCart(data, io) {
       existCart.cartProducts = [];
       existCart.total = 0;
       await existCart.save();
-      io.to(idUser).emit("cartUpdated", existCart); // Emitir evento de carrito actualizado
     }
     return "Shopping cart cleared successfully";
   }
@@ -61,9 +60,6 @@ async function saveProductsOnCart(data, io) {
     existCart.total = total;
     await existCart.save();
   }
-
-  io.to(idUser).emit("cartUpdated", existCart); // Emitir evento de carrito actualizado
-  return "Shopping cart updated successfully";
 }
 
 module.exports = saveProductsOnCart;

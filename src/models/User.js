@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
     {
       id_user: {
         type: DataTypes.STRING,
-        defaultValue: DataTypes.UUIDV4, 
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         unique: true,
       },
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING(),
-        allowNull: true //se permite null para poder cargar usuarios autenticados por terceros
+        allowNull: true, //se permite null para poder cargar usuarios autenticados por terceros
       },
       adress_street: {
         type: DataTypes.STRING,
@@ -82,16 +82,16 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
       user_type: {
-        type: DataTypes.ENUM('shoppeer', 'trader', 'admin'),
+        type: DataTypes.ENUM("shoppeer", "trader", "admin"),
         defaultValue: "shoppeer",
         allowNull: true,
       },
       sign_in_provider: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       picture: {
-        type: DataTypes.STRING
-      }
+        type: DataTypes.STRING,
+      },
     },
     { timestamps: false }
   );

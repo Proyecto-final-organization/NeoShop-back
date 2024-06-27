@@ -32,14 +32,7 @@ router.use("/images", imagesRoutes);
 router.use("/paying", payingRoutes);
 router.use("/paypal", payPalRouter);
 router.use("/", fakeApi);
-router.use(
-  "/cart",
-  (req, res, next) => {
-    req.io = req.app.get("io"); // Obtener la instancia de Socket.IO y pasarla en la request
-    next();
-  },
-  cartRoutes
-);
+router.use("/cart", cartRoutes);
 router.use("/paypal", payPalRouter); // Las rutas de PayPal
 router.use("/review", reviewRoutes);
 

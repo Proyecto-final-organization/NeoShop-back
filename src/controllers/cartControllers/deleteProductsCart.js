@@ -32,8 +32,6 @@ async function deleteProductCart(data, io) {
   await existCart.save();
 
   // Emitir evento de actualización del carrito a través de Socket.IO
-  io.emit(`cart_updated_${idUser}`, existCart);
-
   return { message: "Product deleted successfully from cart" };
 }
 

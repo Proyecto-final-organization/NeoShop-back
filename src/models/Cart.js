@@ -21,6 +21,11 @@ module.exports = (sequelize) => {
           min: 0,
         },
       },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
     },
     { timestamps: false }
   );

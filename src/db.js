@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_USER, DB_PASSWORD,DB_HOST, DB_PORT, DB_NAME  } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
 const userModel = require("./models/User");
 const productModel = require("./models/Product");
 const orderModel = require("./models/Order");
@@ -51,7 +51,7 @@ const {
   cart,
   category,
   brand,
-  favorites
+  favorites,
 } = sequelize.models;
 
 //Relacion de user a product de muchos a muchos, va servir para guardar favoritos del user
@@ -67,16 +67,16 @@ user.hasMany(order);
 order.belongsTo(user);
 
 // Relación de User a Cart (1 a 1){foreignKey es porque el nombre con el que guardaba era incorrecto}
-user.hasOne(cart, { foreignKey: 'id_user' });
-cart.belongsTo(user, { foreignKey: 'id_user' });
+user.hasOne(cart, { foreignKey: "id_user" });
+cart.belongsTo(user, { foreignKey: "id_user" });
 
 // Relación de product a Review (1 a muchos)
 product.hasMany(review);
 review.belongsTo(product);
 
 //Relación de review a usuarios (muchos a 1)
-user.hasMany(review)
-review.belongsTo(user)
+user.hasMany(review);
+review.belongsTo(user);
 
 //relacion de store a producto de 1 a muchos
 store.hasMany(product);
