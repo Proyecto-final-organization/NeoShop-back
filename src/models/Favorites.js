@@ -4,24 +4,21 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "category",
+    "favorites",
     {
-      id_category: {
+      id_favorite: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      name: {
+      id_product: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userId: {
-        type: DataTypes.UUID,
-        allowNull: true,
+      id_user: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
-    },
-    {
-      tableName: 'categories' // Esto asegura que Sequelize use la tabla 'categories'
     },
     { timestamps: false }
   );

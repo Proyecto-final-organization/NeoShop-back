@@ -12,9 +12,12 @@ const imagesRoutes = require("./imagesRoutes");
 const cartRoutes = require("./cartRoutes");
 const payingRoutes = require("./payingRoutes");
 const payPalRouter = require("./payPalRoutes");
+const mailsRoutes = require("./mailsRoutes");
+const favoritesRoutes = require("./favoritesRoutes");
 
 //fakes stores
 const montarStores = require("../utils/montarStores");
+const reviewRoutes = require("./reviewRoutes");
 router.use("/fakesStores", montarStores);
 
 // Configurar los routers
@@ -31,5 +34,6 @@ router.use("/paypal", payPalRouter);
 router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
 router.use("/paypal", payPalRouter); // Las rutas de PayPal
+router.use("/review", reviewRoutes);
 
 module.exports = router;

@@ -1,4 +1,4 @@
-const { user, payment } = require("../../db.js");
+const { user, payment, product } = require("../../db.js");
 
 async function postOrder(data) {
   const { id_payment, arrayProducts, id_user, amount, date } = data;
@@ -6,10 +6,31 @@ async function postOrder(data) {
 
   if (!userExist) {
     throw new Error("The user does not exist");
-  }
+  };
+
+  for(let i=0; i<arrayProducts.length; i++){
+    const {id_product} = arrayProducts[i];
+    const theProduct = await product.findByPk(id_product);
+    if(!theProduct) throw new Error("The product does not exist");
+    if(theProduct.quantity < arrayProducts[i].cartQuantity) throw new Error("No stock available");
+
+    const newQuantity = theProduct.quantity - arrayProducts[i].cartQuantity;
+    if(newQuantity===0){
+      await product.update(
+        { quantity: newQuantity, available: false },
+        { where: { id_product } }
+      );
+    }else{
+      await product.update(
+        { quantity: newQuantity },
+        { where: { id_product } }
+      );
+    };
+  };
 
   const createNewPayment = await payment.create({
     id_payment,
+    id_user,
     paymentProducts: arrayProducts,
     amount,
     date,

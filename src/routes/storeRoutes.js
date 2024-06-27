@@ -5,6 +5,7 @@ const getAllStores = require("../controllers/storeControllers/getAllStores");
 const getStoreByName = require("../controllers/storeControllers/getStoreByName");
 const { STRING } = require("sequelize");
 const getStoreById = require("../controllers/storeControllers/getStoreById");
+const getStoreByUserId = require("../controllers/storeControllers/getStoreByUserId");
 
 //Postea una nueva tienda
 storeRoutes.post("/", async (req, res) => {
@@ -73,6 +74,16 @@ storeRoutes.get("/name/:name", async (req, res) => {
       return res.status(200).json(searchResult);
   } catch (error) {
       return res.status(500).json({ error: error.message });
+  }
+});
+
+storeRoutes.get("/user/:id_user", async (req, res) => {
+  try {
+    const { id_user } = req.params;
+    const storeData = await getStoreByUserId(id_user);
+    return res.status(200).json(storeData);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 });
 

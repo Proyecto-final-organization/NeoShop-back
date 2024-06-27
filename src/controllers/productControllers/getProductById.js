@@ -1,6 +1,6 @@
-const { product, category, store, brand } = require("../../db.js");
+const { product, category, store, brand, review, user } = require("../../db.js");
+const averageProductRating = require("../reviewControllers/averageProductRating.js");
 
-//Esta funcion busca productos por id
 const getProductById = async (idProduct) => {
   const productSearch = await product.findByPk(idProduct, {
     include: [
@@ -17,15 +17,38 @@ const getProductById = async (idProduct) => {
         model: brand,
         attributes: ["name"],
       },
+      {
+        model: review,
+        attributes: ["comment", "rating", "date"], // Incluir la fecha de la review
+        include: [
+          {
+            model: user,
+            attributes: ["name"], // Incluir el nombre del usuario que generó la review
+          },
+        ],
+      },
     ],
   });
 
   if (productSearch === null) {
-    //comprobamos que exista el producto
     throw new Error("the product was not found on the database");
   }
 
-  return productSearch;
+  // Calculate average rating
+  const averageRating = await averageProductRating(idProduct);
+
+  // Attach average rating to the product object
+  productSearch.average_mark = averageRating;
+
+  // Formatear los datos
+  const formattedProduct = {
+    ...productSearch.toJSON(),
+    categories: productSearch.categories.map(cat => cat.name),
+    brand: productSearch.brand.name,
+    store: productSearch.store.name,
+  };
+
+  return formattedProduct;
 };
 
 module.exports = getProductById;

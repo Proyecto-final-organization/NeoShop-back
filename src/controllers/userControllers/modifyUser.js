@@ -4,7 +4,7 @@ const mayuscName = require("../../helpers/mayuscName.js");
 
 const modifyUser = async (data) => {
   try {
-    let {id_user, email, name, lastname, password} = data;
+    let {id_user, email, name, lastname, password, newPassword} = data;
 
     const theUser = await user.findByPk(id_user);
     if(!theUser) throw new Error("User not found");
@@ -30,11 +30,17 @@ const modifyUser = async (data) => {
         const correctLastname = mayuscName(lastname);
         data.lastname = correctLastname;
     };
-    if(password){
-        const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
-        if(!regexPassword.test(password)) throw new Error("Invalid Password");
-        const hashPassword = await bcryptjs.hash(password, 10);
-        data.password = hashPassword;
+
+    if(newPassword){
+      if(!password) throw new Error ("You must enter your current password");
+
+      const correctLogin = await bcryptjs.compare(password, theUser.password);
+      if(!correctLogin) throw new Error("Incorrect password");
+
+      const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+      if(!regexPassword.test(newPassword)) throw new Error("Invalid Password");
+      const hashPassword = await bcryptjs.hash(newPassword, 10);
+      data.password = hashPassword;
     };
 
     const [updated] = await user.update(data, {

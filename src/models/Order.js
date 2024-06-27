@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
 
       state: {
         type: DataTypes.ENUM("created", "in_progress", "finalized"),
-        defaultValue: "finalized",
+        defaultValue: "created",
         allowNull: false,
       },
       shipping_address: {
