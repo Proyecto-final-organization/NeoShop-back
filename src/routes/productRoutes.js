@@ -223,7 +223,7 @@ productRoutes.get("/categoria/:nombre", async (req, res) => {
 productRoutes.get("/filter", async (req, res) => {
   try {
     const { store, brand, category, minPrice, maxPrice, minPoint, maxPoint } =
-      req.body;
+      req.query;
     const filterResult = await filterByOptionProducts({
       store,
       brand,
