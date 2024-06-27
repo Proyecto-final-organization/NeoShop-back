@@ -10,6 +10,8 @@ const forgotPassword = async (email) => {
         throw new Error("User not found");
     };
 
+    if(foundUser.sign_in_provider) throw new Error("This user is authenticated by third parties");
+
     const resetToken = jwt.sign(
         { id_user: foundUser.id_user },
         process.env.JWT_SECRET,
