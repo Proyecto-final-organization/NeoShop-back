@@ -17,12 +17,18 @@ const forgotPassword = async (email) => {
     );
 
     try {
-        const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
         const message = `
+            <div style="border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;">
+            <img src="https://i.ibb.co/PFrSPtf/neoshoplogo.jpg" alt="Logo" style="width: 70%; max-width: 200px; display: block; margin: 0 auto 20px;">
             <h1>Password Reset</h1>
             <p>You requested a password reset</p>
-            <p>Click this link to reset your password</p>
-            <a href=${resetUrl} clicktracking=off>${resetUrl}</a>
+            <p>Use the following token to reset your password:</p>
+            <p><strong>${resetToken}</strong></p>
+            <p>Copy the token, return to the site, and paste it in the corresponding place</p>
+            <p>If you did not request this, ignore the email, thank you</p>
+            <p></p>
+            <p>NeoShop Team</p>
+            </div>
         `;
 
         const response = await transporter.sendMail({

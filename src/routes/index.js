@@ -35,5 +35,7 @@ router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
 router.use("/paypal", payPalRouter); // Las rutas de PayPal
 router.use("/review", reviewRoutes);
+router.use("/mails", mailsRoutes);
+router.use("/favorites", favoritesRoutes);
 
 module.exports = router;
