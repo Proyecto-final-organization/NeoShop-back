@@ -6,7 +6,7 @@ const montarUsers = require("./src/utils/montarUsers.js");
 
 conn
   .sync({ force: true })//cambiar a force para trabajar localmente, alter el otro
-  .then( () => {
+  .then(async () => {
     server.listen(port, async () => {
       console.log(`Server listening on port ${port}`);
     });
