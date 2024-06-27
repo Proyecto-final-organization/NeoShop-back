@@ -31,6 +31,8 @@ router.use("/brand", brandRoutes);
 router.use("/images", imagesRoutes);
 router.use("/paying", payingRoutes);
 router.use("/paypal", payPalRouter);
+router.use("/mails", mailsRoutes);
+router.use("/favorites", favoritesRoutes);
 router.use("/", fakeApi);
 router.use("/cart", cartRoutes);
 router.use("/paypal", payPalRouter); // Las rutas de PayPal
