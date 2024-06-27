@@ -2,6 +2,7 @@ const { store, user } = require("../../db.js");
 
 async function postStore(data) {
   const { address_cp, address_country, address_city, name, logo, id_user } = data;
+  //console.log(data);
 
   if (!address_cp || !address_country || !address_city || !name) {
     throw new Error("Missing data");

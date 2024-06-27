@@ -5,12 +5,21 @@ const server = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const invalidRoute = require("./middleware/invalidRoute");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const sockets = require("./socket");
+
+const whitelist = ["http://localhost:5173", "http://example2.com"]; // Define tu lista blanca aquí
+
 const corsOptions = {
-  origin: [
-    "https://neo-shop-front.vercel.app",
-    "https://neo-shop-dashboard-ngyjmqsrx-neoshopmarketplace.vercel.app"
-  ],
-  credentials: true // Habilita el envío de cookies
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Habilita el envío de cookies
 };
 
 server.name = "API";
@@ -20,5 +29,15 @@ server.use(cookieParser());
 server.use(cors(corsOptions));
 server.use(router);
 server.use(invalidRoute);
+const httpServer = createServer(server);
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:5173", // Aquí puedes ajustar el origen según tus necesidades o mantenerlo como "*"
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+});
 
-module.exports = server;
+// Almacenar `io` en la aplicación de Express
+sockets(io);
+module.exports = { server, httpServer };

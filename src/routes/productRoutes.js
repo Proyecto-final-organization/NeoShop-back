@@ -12,6 +12,7 @@ const getProductsByCategory = require("../controllers/productControllers/getProd
 const filterByOptionProducts = require("../controllers/productControllers/filterByOptionProducts");
 const getLastestProducts = require("../controllers/productControllers/getLastestProducts");
 const getAllProductsByStoreId = require("../controllers/productControllers/getAllProductsByStoreId");
+const modifyProduct = require("../controllers/productControllers/modifyProduct");
 
 //Este es para traer todos los productos
 productRoutes.get("/", async (req, res) => {
@@ -222,7 +223,7 @@ productRoutes.get("/categoria/:nombre", async (req, res) => {
 productRoutes.get("/filter", async (req, res) => {
   try {
     const { store, brand, category, minPrice, maxPrice, minPoint, maxPoint } =
-      req.body;
+      req.query;
     const filterResult = await filterByOptionProducts({
       store,
       brand,
@@ -262,6 +263,17 @@ productRoutes.get("/allProductsStore/:id", async (req, res) => {
     }
     const products = await getAllProductsByStoreId(id);
     return res.status(200).json(products);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
+//Ruta para modificar los datos de un producto
+productRoutes.put("/update", async (req,res) => {
+  try {
+    const data = req.body;
+    const productData = await modifyProduct(data);
+    return res.status(200).json(productData);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

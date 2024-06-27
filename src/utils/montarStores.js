@@ -11,9 +11,9 @@ fakesStores.post('', async (req, res) => {
 
     for(let i=0;i<users.length;i++){
       const newStore = {...datosStore[i], id_user: users[i].id_user};
-      stores.push(newStore);
-    }
 
+      if(newStore.address_cp) stores.push(newStore);
+    };
     stores.forEach( async (stor) => {
       await postStore(stor);
     });
