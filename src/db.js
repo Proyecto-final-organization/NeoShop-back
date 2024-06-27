@@ -14,16 +14,19 @@ const storeModel = require("./models/Store");
 const brandModel = require("./models/Brand");
 const favoritesModel = require("./models/Favorites");
 
-//Configuración de la base de forma local, recuerden crear en postgress la base de datos neoshop.
+const sequelize = new Sequelize(process.env.DB_DEPLOY, {
+  logging: false,
+  native: false,
+});
 
 // Descomentar esto para trabajar localmente
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  {
-    logging: false,
-    native: false,
-  }
-);
+//const sequelize = new Sequelize(
+  //`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+  //{
+    //logging: false,
+    //native: false,
+  //}
+//);
 
 //modelos de la base de datos
 userModel(sequelize);
