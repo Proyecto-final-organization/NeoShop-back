@@ -5,11 +5,7 @@ const server = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const invalidRoute = require("./middleware/invalidRoute");
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-const sockets = require("./socket");
-
-const whitelist = ["http://localhost:5173", "http://example2.com"]; // Define tu lista blanca aquí
+const whitelist = ["https://neo-shop-front.vercel.app/"]; // Define tu lista blanca aquí
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -29,15 +25,5 @@ server.use(cookieParser());
 server.use(cors(corsOptions));
 server.use(router);
 server.use(invalidRoute);
-const httpServer = createServer(server);
-const io = new Server(httpServer, {
-  cors: {
-    origin: "http://localhost:5173", // Aquí puedes ajustar el origen según tus necesidades o mantenerlo como "*"
-    methods: ["GET", "POST"],
-    credentials: true
-  },
-});
 
-// Almacenar `io` en la aplicación de Express
-sockets(io);
-module.exports = { server, httpServer };
+module.exports = server;
