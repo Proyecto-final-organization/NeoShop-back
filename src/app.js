@@ -5,7 +5,14 @@ const server = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const invalidRoute = require("./middleware/invalidRoute");
-const whitelist = ["https://neo-shop-front.vercel.app/"]; // Define tu lista blanca aquí
+
+const whitelist = [
+  "https://neo-shop-front.vercel.app",
+  "https://neo-shop-dashboard-ngyjmqsrx-neoshopmarketplace.vercel.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
+  '*'
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -27,3 +34,4 @@ server.use(router);
 server.use(invalidRoute);
 
 module.exports = server;
+
