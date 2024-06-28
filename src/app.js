@@ -15,17 +15,13 @@ const whitelist = [
 
 const corsOptions = {
   origin: (origin, callback) => {
-    // Permitir todos los orígenes
-    callback(null, true);
-  },
-  credentials: (origin, callback) => {
-    // Habilitar el envío de cookies solo para los orígenes en la lista blanca
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
-      callback(null, false);
+      callback(new Error('Not allowed by CORS'));
     }
-  }
+  },
+  credentials: true // Habilitar el envío de cookies
 };
 
 server.name = "API";
