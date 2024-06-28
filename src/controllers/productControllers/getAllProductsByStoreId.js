@@ -4,9 +4,6 @@ const { product, store, brand, category } = require("../../db.js");
 const getAllProductsByStoreId = async (id) => {
   try {
     const arrayOfProductsOnDB = await product.findAll({
-      where: {
-        available: true // Condición para que solo devuelva productos disponibles
-      },
       include: [
         {
           model: store,
