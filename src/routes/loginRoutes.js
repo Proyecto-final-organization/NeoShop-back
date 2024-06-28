@@ -10,6 +10,7 @@ loginRoutes.post("/", async (req,res) => {
             email,
             password
         } = req.body;
+        console.log(req.body)
         const {
             correctLogin,
             token,
@@ -18,6 +19,7 @@ loginRoutes.post("/", async (req,res) => {
         res.cookie("jwt",token,cookieOption);
         return res.status(200).json({message: "Correct login", token, correctLogin});
     } catch (error) {
+        console.log({ error: error.message })
         return res.status(500).json({ error: error.message });
     }
 });
@@ -25,9 +27,11 @@ loginRoutes.post("/", async (req,res) => {
 loginRoutes.post("/auth", async (req,res) => {
     try {
         const {token, provider} = req.body;
+        console.log(req.body)
         const auth = await loginAuthorization(token, provider);
         return res.status(200).json(auth);
     } catch (error) {
+        console.log({ error: error.message })
         return res.status(500).json({ error: error.message });
     }
 });
@@ -38,6 +42,7 @@ loginRoutes.post("/auth/third", async (req,res) => {
     const theUser = await authThird(token);
     res.status(200).json({ message: 'Authentication successful', theUser });
   } catch (error) {
+      console.log({ error: error.message })
     res.status(401).json({ message: 'Authentication failed', error: error.message });
   }
 });
