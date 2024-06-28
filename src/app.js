@@ -7,18 +7,19 @@ const cookieParser = require("cookie-parser");
 const invalidRoute = require("./middleware/invalidRoute");
 
 const whitelist = [
-  "https://neo-shop-front-l7621ntd5-neoshopmarketplace.vercel.app/",
-  "https://neo-shop-dashboard-loha0llqe-neoshopmarketplace.vercel.app/",
+  "https://neo-shop-front-l7621ntd5-neoshopmarketplace.vercel.app",
+  "https://neo-shop-dashboard-loha0llqe-neoshopmarketplace.vercel.app",
   "http://localhost:5173",
-  "http://localhost:3000",
-  '*'
+  "http://localhost:3000"
 ];
 
 const corsOptions = {
   origin: (origin, callback) => {
+    console.log(`Origin: ${origin}`); // Log para depuración
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
+      console.log(`Not allowed by CORS: ${origin}`);
       callback(new Error("Not allowed by CORS"));
     }
   },
@@ -34,4 +35,5 @@ server.use(router);
 server.use(invalidRoute);
 
 module.exports = server;
+
 
