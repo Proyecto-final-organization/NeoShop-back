@@ -13,16 +13,8 @@ const whitelist = [
   "http://localhost:3000"
 ];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    console.log(`Origin: ${origin}`); // Log para depuración
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      console.log(`Not allowed by CORS: ${origin}`);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+const corsOptions ={
+  origin: '*', // Permitir todas las solicitudes
   credentials: true, // Habilita el envío de cookies
 };
 
