@@ -16,6 +16,7 @@ loginRoutes.post("/", async (req,res) => {
             token,
             cookieOption
         } = await login(email, password);
+        console.log("token: ", token, "cookieOption", cookieOption)
         res.cookie("jwt",token,cookieOption);
         return res.status(200).json({message: "Correct login", token, correctLogin});
     } catch (error) {
