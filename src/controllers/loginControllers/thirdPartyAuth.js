@@ -5,7 +5,7 @@ const authThird = async (token) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(token);
         const { uid, email, email_verified, firebase, name, picture } = decodedToken;
-    
+
         const [theUser, created] = await user.findOrCreate({
             where: { email },
             defaults: {
@@ -17,10 +17,7 @@ const authThird = async (token) => {
             },
           });
         if(!created){
-            await theUser.update({
-                email_verified,
-                //demas campos a actualizar
-            });
+            if(!theUser.sign_in_provider) throw new Error ("The user already exist");
         };
         
         return theUser;
