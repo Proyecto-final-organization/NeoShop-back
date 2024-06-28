@@ -5,7 +5,12 @@ const authThird = async (token) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(token);
         const { uid, email, email_verified, firebase, name, picture } = decodedToken;
-        console.log(decodedToken);
+
+        const userExist = await user.findOne({
+            where: {email}
+        });
+        
+        if(userExist) throw new Error("The user already exist");
     
         const [theUser, created] = await user.findOrCreate({
             where: { email },
