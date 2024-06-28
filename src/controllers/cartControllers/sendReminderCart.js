@@ -21,9 +21,11 @@ const sendReminderCart = async () => {
       const cartFind = await cartByUserId(cartInstance.user.id_user);
       const productSend = cartFind.products;
       const messageSend = `
-          <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
-            <h2 style="color: #5f9ea0;">Hola, tienes productos en tu carrito de NeoShop</h2>
-            <p>Estos son los productos que tienes pendientes de compra:</p>
+          <div style="border: 1px solid #ddd; padding: 20px; max-width: 600px; margin: 0 auto;">
+            <img src="https://i.ibb.co/PFrSPtf/neoshoplogo.jpg" alt="Logo" style="width: 70%; max-width: 200px; display: block; margin: 0 auto 20px;">
+            <h1>NeoShop</h1>
+            <h2 style="color: #5f9ea0;">Hello, you have products in your NeoShop cart</h2>
+            <p>These are the products you have pending purchase:</p>
             <ul style="list-style: none; padding: 0;">
               ${productSend
                 .map(
@@ -36,10 +38,10 @@ const sendReminderCart = async () => {
                 )
                 .join("")}
             </ul>
-            <p>No olvides finalizar tu compra!</p>
-            <p>Para seguir con la compra, por favor <a href="http://localhost:5173/payPreview" style="color: #5f9ea0; text-decoration: none;">da click aquí</a>.</p>
-            <p>Gracias por confiar en NeoShop.</p>
-          </div>
+            <p>Don't forget to finalize your purchase!</p>
+            <p>To continue with the purchase, please <a href="http://localhost:5173/payPreview" style="color: #5f9ea0; text-decoration: none;">da click aquí</a>.</p>
+            <p>Thank you for trusting NeoShop.</p>
+            </div>
         `;
       await prueba(emailUser, messageSend);
     }
