@@ -38,9 +38,9 @@ const sendReminderCart = async () => {
                 )
                 .join("")}
             </ul>
-            <p>No olvides finalizar tu compra!</p>
-            <p>Para seguir con la compra, por favor <a href="http://localhost:5173/payPreview" style="color: #5f9ea0; text-decoration: none;">da click aquí</a>.</p>
-            <p>Gracias por confiar en NeoShop.</p>
+            <p>Don't forget to finalize your purchase!</p>
+            <p>To continue with the purchase, please <a href="http://localhost:5173/payPreview" style="color: #5f9ea0; text-decoration: none;">da click aquí</a>.</p>
+            <p>Thank you for trusting NeoShop.</p>
             </div>
         `;
       await prueba(emailUser, messageSend);
