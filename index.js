@@ -12,7 +12,7 @@ conn
     server.listen(port, () => {
       console.log(`Server listening on port ${port}`);
     });
-    //await montarUsers();
+    await montarUsers();
     //setInterval(sendReminderCart, 2 * 60 * 1000);
   })
   .catch((error) =>
