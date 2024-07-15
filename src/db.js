@@ -17,7 +17,6 @@ const favoritesModel = require("./models/Favorites");
 const sequelize = new Sequelize(process.env.DB_DEPLOY, {
   logging: false,
   native: false,
-  ssl:true,
 });
 
 // Descomentar esto para trabajar localmente
